@@ -23,6 +23,14 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
+    
+            /* --- BACKGROUND IMAGE CODING --- */
+            /* Replace 'your-background-image.jpg' with your actual image filename or URL */
+            background-image: linear-gradient(rgba(247, 250, 252, 0.9), rgba(247, 250, 252, 0.9)), url('your-background-image.jpg');
+            background-attachment: fixed;  /* Keeps the background image fixed while scrolling */
+            background-size: cover;        /* Ensures the image stretches to cover the entire screen */
+            background-position: center;   /* Centers the picture perfectly */
+    
             color: var(--text-color);
             display: flex;
             line-height: 1.6;
@@ -116,7 +124,8 @@
 
         /* Header Layout */
         header {
-            background: white;
+            background: rgba(255, 255, 255, 0.92); /* 92% opaque white background */
+            /* Keep all other existing properties (padding, border-radius, etc.) exactly the same */
             padding: 2.5rem;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
@@ -155,7 +164,8 @@
 
         /* Section Formatting */
         section {
-            background: white;
+            background: rgba(255, 255, 255, 0.92); /* 92% opaque white background */
+            /* Keep all other existing properties exactly the same */
             padding: 2.5rem;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
