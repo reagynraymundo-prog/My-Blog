@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - Complete Grade Database</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --fail-color: #ef4444;
+            --drop-color: #64748b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            color: var(--primary-color);
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-top: 10px;
+        }
+
+        .logo-container img {
+            max-height: 100px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        header h1 {
+            margin-bottom: 5px;
+            font-size: 2.2rem;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            max-width: 600px;
+            padding: 14px 24px;
+            font-size: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        }
+
+        .student-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 6px solid var(--primary-color);
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .student-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+
+        .subject-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--border-color);
+            align-items: center;
+        }
+
+        .subject-header {
+            font-weight: bold;
+            background-color: #f1f5f9;
+            border-radius: 6px;
+            border-bottom: none;
+        }
+
+        .remarks-passed { color: var(--success-color); font-weight: bold; }
+        .remarks-failed { color: var(--fail-color); font-weight: bold; }
+        .remarks-drop { color: var(--drop-color); font-weight: bold; }
+
+        .leaderboards {
+            margin-top: 35px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .leaderboards { grid-template-columns: 1fr; }
+            .subject-row { grid-template-columns: 1fr; gap: 8px; padding: 15px 10px; }
+            .subject-header { display: none; }
+        }
+
+        .panel {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            padding: 22px;
+        }
+
+        .panel h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .top-list { list-style: none; padding: 0; margin: 0; }
+        .top-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 5px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .top-item:last-child { border-bottom: none; }
+        .rank-badge {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #64748b;
+            font-style: italic;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Program Logo" id="portalLogo">
+        </div>
+        <h1>Engineering Student Portal</h1>
+        <p>Complete Database & Real-Time Academic Leaderboards</p>
+    </header>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search by student's first or last name..." oninput="searchStudent()">
+    </div>
+
+    <div id="results"></div>
+
+    <div class="leaderboards">
+        <div class="panel">
+            <h3>🏆 Top 5 - CE304 Highway Engineering</h3>
+            <ul id="ce304Top" class="top-list"></ul>
+        </div>
+        <div class="panel">
+            <h3>🏆 Top 5 - ES228 Strength of Materials</h3>
+            <ul id="es228Top" class="top-list"></ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Master data compiled from all class lists verbatim
+    const rawGrades = [
+        // === FILE: CY 2025-2026 SEM 2.xlsx - BLK 1-ES 228 .pdf ===
+        { name: "ADINO, Lanie A.", subject: "ES228", grade: "5.0", remarks: "FAILED" },
+        { name: "AGBON, Francisco D.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "ALMENCION, Jhon Sydrick R.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "ALVE, Ivan Justine E.", subject: "ES228", grade: "2.4", remarks: "Passed" },
+        { name: "ANDRADE, William Patrick G.", subject: "ES228", grade: "2.6", remarks: "Passed" },
+        { name: "ASADON, Rijean B.", subject: "ES228", grade: "2.7", remarks: "Passed" },
+        { name: "BAJE, Darryl C.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "BALAGASAY, Lloydien C.", subject: "ES228", grade: "2.4", remarks: "Passed" },
+        { name: "BANTILAN, Ruth Ν.", subject: "ES228", grade: "2.0", remarks: "Passed" },
+        { name: "BAYOT, Samuel Lloyd P.", subject: "ES228", grade: "2.7", remarks: "Passed" },
+        { name: "BUSANTE, Anthony G.", subject: "ES228", grade: "2.7", remarks: "Passed" },
+        { name: "CADLIT, Aicelle A.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "CALIWAN, James Varlam E.", subject: "ES228", grade: "2.6", remarks: "Passed" },
+        { name: "CAMOLO, Egdred C.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "CASAUS, Jefferson D.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "CORILLO, Christann Archie C.", subject: "ES228", grade: "2.8", remarks: "Passed" },
+        { name: "DE VEYRA, Ryan Christian Ο.", subject: "ES228", grade: "2.8", remarks: "Passed" },
+        { name: "DEL ROSARIO, Brendell Russel A.", subject: "ES228", grade: "2.6", remarks: "Passed" },
+        { name: "ELLASO, Edrian C.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "ELMIDO, Santiago C.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "ENTING, Warren V.", subject: "ES228", grade: "5.0", remarks: "FAILED" },
+        { name: "FLORES, Ma. Niña Rhocel M.", subject: "ES228", grade: "DRP", remarks: "Drop" },
+        { name: "GADIAΝΟ, Jhon Rey G.", subject: "ES228", grade: "2.8", remarks: "Passed" },
+        { name: "GARCELAZO, Ahzl Rey R.", subject: "ES228", grade: "2.8", remarks: "Passed" },
+        { name: "GATELA, Dave Danielle F.", subject: "ES228", grade: "2.4", remarks: "Passed" },
+        { name: "GATELA, Merwayne V.", subject: "ES228", grade: "2.8", remarks: "Passed" },
+        { name: "GO, Marc Dominque A.", subject: "ES228", grade: "5.0", remarks: "FAILED" },
+        { name: "GUILLENO, Ken Irelle Jade F.", subject: "ES228", grade: "DRP", remarks: "Drop" },
+        { name: "IRLANDEZ, Khen Jemuel U.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "KIKUCHI, Yoshio, Jr. D.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "LABAREÑO, Patt Kirby 0.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "LACABA, Noime B.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "LAGUNA, Kent Ruel E.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "LANANG, Cedrick Nhice D.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "LIM, Cyrus Ed V.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "LOYAGA, Aarron C.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "LUCANA, Kenn Edward", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "MARTILLO, Antwan Jamir G.", subject: "ES228", grade: "5.0", remarks: "FAILED" },
+        { name: "MATOL, Kier Danzil S.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "NIKAZY, Pathrik Lee L.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "OCOP, Felix Dominic J.", subject: "ES228", grade: "1.4", remarks: "Passed" },
+        { name: "OLEDAN, Mike Joseph A.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "PACANAN, Jiselle B.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "PACIENSIA, Joemari Neil G.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "PADAR, Agapito III Μ.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "PELICANO, Nicca Lynn M.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "PEÑARANDA, Melecent Angelica G.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "RACHO, Malcum A.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "REPOSO, Bonifacio B.", subject: "ES228", grade: "2.7", remarks: "Passed" },
+        { name: "ROMA, Ashley B.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "ROSAL, Queny Rose B.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "SALDAÑA, Don Mc Kent M.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "SEVILLA, Jude Raphael D.", subject: "ES228", grade: "5.0", remarks: "FAILED" },
+        { name: "TADEFA, Joven Alfred S.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "TORRES, Louie Jay C.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "VASQUEZ, Joan", subject: "ES228", grade: "2.0", remarks: "Passed" },
+        { name: "VERTUDES, Franc Luiz R.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+
+        // === FILE: CY 2025-2026 SEM 2.xlsx - BLK 2-ES 228 .pdf ===
+        { name: "ACOSTA, Roniel", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "AKANG, Ruth Jene", subject: "ES228", grade: "2.4", remarks: "Passed" },
+        { name: "AÑOC, Kimshi", subject: "ES228", grade: "2.7", remarks: "Passed" },
+        { name: "BELLEN, Raphael", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "BIÑAR, Kibnash", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "BRITON, Adrian", subject: "ES228", grade: "2.2", remarks: "Passed" },
+        { name: "CADOCOY, Robin", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "CAÑONES, Sweet", subject: "ES228", grade: "2.6", remarks: "Passed" },
+        { name: "CARTEL, Sheena", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "CASTILLO, Grace Lynne", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "DACILLO, Claire", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "DASIG, Kemuel Kim", subject: "ES228", grade: "2.8", remarks: "Passed" },
+        { name: "DECLARO, Ellyza Mae", subject: "ES228", grade: "2.3", remarks: "Passed" },
+        { name: "DEJOS, John Mark", subject: "ES228", grade: "DRP", remarks: "Drop" },
+        { name: "ESPERAS, Jhon Rick", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "FABI, Luigi", subject: "ES228", grade: "5.0", remarks: "FAILED" },
+        { name: "GARING, John Matthew", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "GILBUENA, Mary Jenile", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "JABONETE, Delian Jay", subject: "ES228", grade: "2.4", remarks: "Passed" },
+        { name: "JAVINES, Julianne Claire", subject: "ES228", grade: "2.5", remarks: "Passed" },
+        { name: "LABRA, Precy Marie", subject: "ES228", grade: "2.8", remarks: "Passed" },
+        { name: "LABRO, Trixie", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "LANZARROTE, Nehaniel", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "LINDE, John Alexander", subject: "ES228", grade: "5.0", remarks: "FAILED" },
+        { name: "LLACER, Vincent Mil", subject: "ES228", grade: "1.5", remarks: "Passed" },
+        { name: "MABINGNAY, Ma. Rosadel", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "MABUBAY, Felixson Jay Niño", subject: "ES228", grade: "1.8", remarks: "Passed" },
+        { name: "MACAWILE, Jovany Jane", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "MANATAD, Ezrylle", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "MARTIJA, Pauleen", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "MOPON, Mitch", subject: "ES228", grade: "2.7", remarks: "Passed" },
+        { name: "MUJERES, Leodel", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "NAZARENO, Benia", subject: "ES228", grade: "2.7", remarks: "Passed" },
+        { name: "OBISPO, Allyana Chairyn", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "PACIMOS, John Rey", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "PAJUDPUD, Noemi", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "PATASIN, Alrick", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "POMBO, Francis Marck", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "PORTUGALIZA, Reymelen", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "QUIRANTE, Ana Cheryl", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "RAGRAG, Janna Shen", subject: "ES228", grade: "5.0", remarks: "FAILED" },
+        { name: "REALINO, Kyla", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "REDOBANTE, Julilie Ann", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "SOLAR, Kierstien Faith", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "SORIO, Gina Mae", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "SUMALINOG, Felix Martin", subject: "ES228", grade: "5.0", remarks: "FAILED" },
+        { name: "TABUAC, John Jacob", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "TAN, Winny Ann Debuen", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "TANAUAN, Maxwell", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "TANGPOS, John Dave", subject: "ES228", grade: "2.5", remarks: "Passed" },
+        { name: "VIGAL, Ronmel Clyde", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "VILLACORTES, Ma. Megan", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "YARI, John Mark", subject: "ES228", grade: "2.9", remarks: "Passed" },
+
+        // === FILE: CY 2025-2026 SEM 2.xlsx - BLK 3-ES 228.pdf ===
+        { name: "ACEDO, Francene Icis D.", subject: "ES228", grade: "2.7", remarks: "Passed" },
+        { name: "AMISTOSO, Jared Clynt D.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "ANDRADA, Daisy Ray R.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "BABON, Loida M.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "BELAS, Ralph Emerson C.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "BERDAN, Charles Andei", subject: "ES228", grade: "2.8", remarks: "Passed" },
+        { name: "BERMAS, David Lyle B.", subject: "ES228", grade: "2.7", remarks: "Passed" },
+        { name: "BOLIVAR, Shassa May S.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "CABARLIZA, Chuckie B.", subject: "ES228", grade: "2.5", remarks: "Passed" },
+        { name: "CANALES, Shane E.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "CATALAN, Rocky Anthony L.", subject: "ES228", grade: "2.8", remarks: "Passed" },
+        { name: "CORALES, Shena C.", subject: "ES228", grade: "2.7", remarks: "Passed" },
+        { name: "CORTEZ, Pauline Agelic A.", subject: "ES228", grade: "2.6", remarks: "Passed" },
+        { name: "DACLIZON, Al-Jay Stefane", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "DAVANTES, Faith D.", subject: "ES228", grade: "2.2", remarks: "Passed" },
+        { name: "DEJARLO, Michael Anthony B.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "DELA CRUZ, Rey T.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "DELOS SANTOS, Jamewelle D.", subject: "ES228", grade: "DRP", remarks: "Drop" },
+        { name: "DELOS SANTOS, Micaela D.", subject: "ES228", grade: "2.8", remarks: "Passed" },
+        { name: "ECOL, Edwelene E.", subject: "ES228", grade: "2.5", remarks: "Passed" },
+        { name: "GELLA, LESBENK E.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "IGNACIO, Donalee Mae", subject: "ES228", grade: "2.8", remarks: "Passed" },
+        { name: "LADRERA, Keith Chamyle B.", subject: "ES228", grade: "2.3", remarks: "Passed" },
+        { name: "LAURIO, Justine Yzell G.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "LUCIANO, Vince Noel C.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "MARCELLANA, Angel Faith C.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "MARZON, John Ralph A.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "NEGRADAS, Rwynn U.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "NIEZ, Irish Rvan Joy", subject: "ES228", grade: "2.5", remarks: "Passed" },
+        { name: "PAMPLINA, Rhezandy Mae M.", subject: "ES228", grade: "2.8", remarks: "Passed" },
+        { name: "PICARDO, Desire B.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "RAYANDAYAN, Ric Francis L.", subject: "ES228", grade: "5.0", remarks: "FAILED" },
+        { name: "ROA, Tesa Mae F.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "SUAREZ, Philip Alexander Μ.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "TISADO, Hans Christian A.", subject: "ES228", grade: "DRP", remarks: "Drop" },
+        { name: "TUPAZ, Crisryl Carine Mhee D.", subject: "ES228", grade: "2.9", remarks: "Passed" },
+        { name: "YAMON, Paul Andrei M.", subject: "ES228", grade: "DRP", remarks: "Drop" },
+
+        // === FILE: CY 2025-2026 SEM 2.xlsx - BLK 1-CE 304.pdf ===
+        { name: "ABADILLA, Adilyn A.", subject: "CE304", grade: "2.9", remarks: "Passed" },
+        { name: "ACEDO, Francene Icis D.", subject: "CE304", grade: "1.3", remarks: "Passed" },
+        { name: "ADINO, Lanie A.", subject: "CE304", grade: "2.9", remarks: "Passed" },
+        { name: "ALMENCION, Jhon Sydrick R.", subject: "CE304", grade: "2.3", remarks: "Passed" },
+        { name: "ALVE, Ivan Justine E.", subject: "CE304", grade: "1.7", remarks: "Passed" },
+        { name: "BAJE, Darryl C.", subject: "CE304", grade: "2.9", remarks: "Passed" },
+        { name: "BAYOT, Samuel Lloyd P.", subject: "CE304", grade: "1.7", remarks: "Passed" },
+        { name: "BERDAN, Charles Andei", subject: "CE304", grade: "2.8", remarks: "Passed" },
+        { name: "BUSANTE, Anthony G.", subject: "CE304", grade: "1.8", remarks: "Passed" },
+        { name: "CADLIT, Aicelle A.", subject: "CE304", grade: "2.9", remarks: "Passed" },
+        { name: "CALIWAN, James Varlam E.", subject: "CE304", grade: "1.3", remarks: "Passed" },
+        { name: "CAMOLO, Egred C.", subject: "CE304", grade: "2.4", remarks: "Passed" },
+        { name: "DACLIZON, Al-Jay Stefane Μ.", subject: "CE304", grade: "2.9", remarks: "Passed" },
+        { name: "DAPUNAN, Jayson D.", subject: "CE304", grade: "2.0", remarks: "Passed" },
+        { name: "ELLASO, Edrian C.", subject: "CE304", grade: "2.3", remarks: "Passed" },
+        { name: "ELMIDO, Santiago C.", subject: "CE304", grade: "2.7", remarks: "Passed" },
+        { name: "GACITA, Marrion Darron A.", subject: "CE304", grade: "2.7", remarks: "Passed" },
+        { name: "GADIAΝΟ, Jhon Rey G.", subject: "CE304", grade: "2.8", remarks: "Passed" },
+        { name: "GALLAZA, Sam Lloyd G.", subject: "CE304", grade: "2.9", remarks: "Passed" },
+        { name: "GARCELAZO, Ahzl Rey R.", subject: "CE304", grade: "2.3", remarks: "Passed" },
+        { name: "GARNACE, Aiza Alamooin", subject: "CE304", grade: "2.7", remarks: "Passed" },
+        { name: "GELLA, Lesbenk E.", subject: "CE304", grade: "2.7", remarks: "Passed" },
+        { name: "GUANCO, Patrick A.", subject: "CE304", grade: "2.0", remarks: "Passed" },
+        { name: "JATULAN, Paul Justin J.", subject: "CE304", grade: "4.5", remarks: "Failed" },
+        { name: "LANANG, Cedrick Nhice D.", subject: "CE304", grade: "2.0", remarks: "Passed" },
+        { name: "LIM, Cyrus Ed V.", subject: "CE304", grade: "2.7", remarks: "Passed" },
+        { name: "MARTILLO, Antwan Jamir G.", subject: "CE304", grade: "2.9", remarks: "Passed" },
+        { name: "MARZON, John Ralph A.", subject: "CE304", grade: "2.1", remarks: "Passed" },
+        { name: "MATOL, Kier Danzil S.", subject: "CE304", grade: "2.7", remarks: "Passed" },
+        { name: "OLEDAN, Mike Joseph A.", subject: "CE304", grade: "2.9", remarks: "Passed" },
+        { name: "PADAR, Agapito III M.", subject: "CE304", grade: "2.3", remarks: "Passed" },
+        { name: "PEÑARANDA, Melecent Angelica G.", subject: "CE304", grade: "2.9", remarks: "Passed" },
+        { name: "RACHO, Malcum A.", subject: "CE304", grade: "2.5", remarks: "Passed" },
+        { name: "REPOSO, Bonifacio Jr. B.", subject: "CE304", grade: "2.6", remarks: "Passed" },
+        { name: "ROMA, Ashley B.", subject: "CE304", grade: "2.2", remarks: "Passed" },
+        { name: "TADEFA, Joven Alfred S.", subject: "CE304", grade: "1.8", remarks: "Passed" },
+        { name: "TILLE, Albert", subject: "CE304", grade: "4.5", remarks: "Failed" },
+        { name: "TORRES, Louie Jay C.", subject: "CE304", grade: "2.3", remarks: "Passed" },
+        { name: "VERTUDES, Franc Luiz", subject: "CE304", grade: "2.0", remarks: "Passed" },
+        { name: "VILLAFLOR, Khalil Van", subject: "CE304", grade: "3.9", remarks: "Failed" },
+
+        // === FILE: CY 2025-2026 SEM 2.xlsx - BLK 3-CE 304.pdf ===
+        { name: "ABALOYAN, Angiel Vien B.", subject: "CE304", grade: "1.7", remarks: "Passed" },
+        { name: "AMISTOSO, Jared Clynt D.", subject: "CE304", grade: "2.5", remarks: "Passed" },
+        { name: "ANDRADA, Daisy Ray R.", subject: "CE304", grade: "2.9", remarks: "Passed" },
+        { name: "ANQUE, Roy Carlo G.", subject: "CE304", grade: "2.2", remarks: "Passed" },
+        { name: "APES, Khent Adrianne T.", subject: "CE304", grade: "1.1", remarks: "Passed" },
+        { name: "ASADON, Rijean B.", subject: "CE304", grade: "2.5", remarks: "Passed" },
+        { name: "BELLEN, Raphael B.", subject: "CE304", grade: "1.7", remarks: "Passed" },
+        { name: "BERMAS, David Lyle B.", subject: "CE304", grade: "1.7", remarks: "Passed" },
+        { name: "BOLIVAR, Shassa May S.", subject: "CE304", grade: "2.3", remarks: "Passed" },
+        { name: "CABARLIZA, Chuckie B.", subject: "CE304", grade: "1.6", remarks: "Passed" },
+        { name: "CALDONA, Lianne Jane D.", subject: "CE304", grade: "2.4", remarks: "Passed" },
+        { name: "CANALES, Shane E.", subject: "CE304", grade: "2.7", remarks: "Passed" },
+        { name: "CATALAN, Rocky Anthony L.", subject: "CE304", grade: "2.9", remarks: "Passed" },
+        { name: "CORALES, Shena C.", subject: "CE304", grade: "1.9", remarks: "Passed" },
+        { name: "CORTEZ, Pauline Agelic A.", subject: "CE304", grade: "1.4", remarks: "Passed" },
+        { name: "DACLIZON, Al-Jay Stefane M.", subject: "CE304", grade: "2.5", remarks: "Passed" },
+        { name: "DACUT, John Austin Keith C.", subject: "CE304", grade: "2.9", remarks: "Passed" },
+        { name: "DELA CRUZ, Rey T.", subject: "CE304", grade: "2.6", remarks: "Passed" },
+        { name: "ESCALA, Lawrence Angielo C.", subject: "CE304", grade: "3.9", remarks: "Failed" },
+        { name: "IGNACIO, Donalee Mae", subject: "CE304", grade: "2.2", remarks: "Passed" },
+        { name: "LADRERA, Keith Chamyle B.", subject: "CE304", grade: "1.8", remarks: "Passed." },
+        { name: "LANZARROTE, Nethaniel A.", subject: "CE304", grade: "1.8", remarks: "Passed" },
+        { name: "LAURIO, Justine Yzell G.", subject: "CE304", grade: "2.9", remarks: "Passed" },
+        { name: "LLACER, Vincent Mil C.", subject: "CE304", grade: "1.8", remarks: "Passed" },
+        { name: "LUCIANO, Vince Noel C.", subject: "CE304", grade: "2.2", remarks: "Passed" },
+        { name: "MABUBAY, Felixson Jay Niño L.", subject: "CE304", grade: "1.4", remarks: "Passed" },
+        { name: "MARCELLANA, Angel Faith C.", subject: "CE304", grade: "2.4", remarks: "Passed" },
+        { name: "MUJERES, Leodel F", subject: "CE304", grade: "2.6", remarks: "Passed" },
+        { name: "MUJERES, Leonico F", subject: "CE304", grade: "2.7", remarks: "Passed" },
+        { name: "NIEZ, Irish Rvan Joy", subject: "CE304", grade: "1.7", remarks: "Passed" },
+        { name: "PESEDAS, Nathaniel Ashley S.", subject: "CE304", grade: "2.2", remarks: "Passed" },
+        { name: "PICARDO, Desire B.", subject: "CE304", grade: "2.1", remarks: "Passed" },
+        { name: "POLIC, Althea", subject: "CE304", grade: "2.9", remarks: "Passed" },
+        { name: "RAYANDAYAN, Ric Francis L.", subject: "CE304", grade: "2.9", remarks: "Passed" },
+        { name: "ROA, Tesa Mae F", subject: "CE304", grade: "2.2", remarks: "Passed" },
+        { name: "SALVEDIA, Rhazzamher C.", subject: "CE304", grade: "4.3", remarks: "Failed" },
+        { name: "SUAREZ, Philip Alexander Μ.", subject: "CE304", grade: "1.7", remarks: "Passed" },
+        { name: "TUPAZ, Crisryl Carine Mhee D.", subject: "CE304", grade: "2.3", remarks: "Passed" }
+    ];
+
+    // Core Rank Data Builders
+    // 1. DENSE LOGIC (Perfect for the visual top-5 widgets panel layout)
+    function calculateDenseSubjectRanks(subjectCode) {
+        let subjectStudents = rawGrades.filter(s => s.subject === subjectCode && !isNaN(parseFloat(s.grade)) && s.remarks.toLowerCase().includes('pass'));
+        subjectStudents.sort((a, b) => parseFloat(a.grade) - parseFloat(b.grade));
+        let rankMap = {};
+        let currentRank = 1;
+        for (let i = 0; i < subjectStudents.length; i++) {
+            if (i > 0 && parseFloat(subjectStudents[i].grade) > parseFloat(subjectStudents[i-1].grade)) { currentRank++; }
+            rankMap[subjectStudents[i].name] = currentRank;
+        }
+        return { sortedList: subjectStudents, rankMap: rankMap };
+    }
+
+    // 2. SEARCH ENGINE LOGIC (Standard Competition Rank: Sorted completely by Grade, then alphabetically by Surname)
+    function calculateSearchSubjectRanks(subjectCode) {
+        let subjectStudents = rawGrades.filter(s => s.subject === subjectCode && !isNaN(parseFloat(s.grade)) && s.remarks.toLowerCase().includes('pass'));
+        
+        // Custom Matrix Sorter: Compare grades first, if grades equal, fallback seamlessly to Surname alphabetization
+        subjectStudents.sort((a, b) => {
+            let gradeDiff = parseFloat(a.grade) - parseFloat(b.grade);
+            if (gradeDiff !== 0) return gradeDiff;
+            return a.name.localeCompare(b.name);
+        });
+
+        let rankMap = {};
+        for (let i = 0; i < subjectStudents.length; i++) {
+            // Assigns unique strict positioning slot index dynamically (1-indexed base)
+            rankMap[subjectStudents[i].name] = i + 1;
+        }
+        return rankMap;
+    }
+
+    const denseCe304 = calculateDenseSubjectRanks("CE304");
+    const denseEs228 = calculateDenseSubjectRanks("ES228");
+
+    const searchCe304RankMap = calculateSearchSubjectRanks("CE304");
+    const searchEs228RankMap = calculateSearchSubjectRanks("ES228");
+
+    // Dynamic Top 5 Leaderboard Generator
+    function renderTopFive(elementId, dataset) {
+        const ul = document.getElementById(elementId);
+        ul.innerHTML = "";
+        for (let i = 0; i < dataset.sortedList.length; i++) {
+            let student = dataset.sortedList[i];
+            let currentRank = dataset.rankMap[student.name];
+            if (currentRank > 5) break;
+            let li = document.createElement("li");
+            li.className = "top-item";
+            li.innerHTML = `<span><span class="rank-badge">Rank ${currentRank}</span> ${student.name}</span> <strong>${student.grade}</strong>`;
+            ul.appendChild(li);
+        }
+    }
+
+    renderTopFive("ce304Top", denseCe304);
+    renderTopFive("es228Top", denseEs228);
+
+    // Advanced Search Profile Logic
+    function searchStudent() {
+        const query = document.getElementById("searchInput").value.trim().toLowerCase();
+        const resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML = "";
+
+        if (query === "") return;
+
+        let profiles = {};
+
+        rawGrades.forEach(record => {
+            if (record.name.toLowerCase().includes(query)) {
+                if (!profiles[record.name]) {
+                    profiles[record.name] = [];
+                }
+                
+                let calculatedRank = "N/A";
+                if (!isNaN(parseFloat(record.grade)) && record.remarks.toLowerCase().includes('pass')) {
+                    if (record.subject === "CE304") calculatedRank = searchCe304RankMap[record.name] || "N/A";
+                    if (record.subject === "ES228") calculatedRank = searchEs228RankMap[record.name] || "N/A";
+                }
+
+                profiles[record.name].push({
+                    subject: record.subject === "CE304" ? "CE304 Highway Engineering" : "ES228 Strength of Materials",
+                    grade: record.grade,
+                    remarks: record.remarks,
+                    rank: calculatedRank
+                });
+            }
+        });
+
+        const matchedNames = Object.keys(profiles);
+
+        if (matchedNames.length === 0) {
+            resultsDiv.innerHTML = '<div class="no-results">No matches found. Check your search spelling.</div>';
+            return;
+        }
+
+        matchedNames.forEach(studentName => {
+            let card = document.createElement("div");
+            card.className = "student-card";
+
+            let nameHeader = document.createElement("div");
+            nameHeader.className = "student-name";
+            nameHeader.innerText = studentName;
+            card.appendChild(nameHeader);
+
+            let headerRow = document.createElement("div");
+            headerRow.className = "subject-row subject-header";
+            headerRow.innerHTML = "<div>Subject</div><div>Grade</div><div>Remarks</div><div>Class Rank</div>";
+            card.appendChild(headerRow);
+
+            profiles[studentName].forEach(sub => {
+                let row = document.createElement("div");
+                row.className = "subject-row";
+                
+                let remarkClass = "remarks-passed";
+                if(sub.remarks.toLowerCase().includes('fail')) remarkClass = "remarks-failed";
+                if(sub.remarks.toLowerCase().includes('drop')) remarkClass = "remarks-drop";
+
+                let rankDisplay = sub.rank !== "N/A" ? `<span class="rank-badge">Rank ${sub.rank}</span>` : `<span class="rank-badge" style="background:#64748b;">N/A</span>`;
+
+                row.innerHTML = `
+                    <div>${sub.subject}</div>
+                    <div><strong>${sub.grade}</strong></div>
+                    <div class="${remarkClass}">${sub.remarks}</div>
+                    <div>${rankDisplay}</div>
+                `;
+                card.appendChild(row);
+            });
+
+            resultsDiv.appendChild(card);
+        });
+    }
+</script>
+
+</body>
+</html>
