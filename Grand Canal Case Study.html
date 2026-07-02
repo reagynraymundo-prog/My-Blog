@@ -19,7 +19,30 @@
             margin: 0;
             padding: 0;
         }
+        /* Published Date Styling */
+        .published-date span {
+            margin-bottom: 0.25rem;
+        }
 
+        .date-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: #e6fffa; /* Light teal tint matching the table highlights */
+            color: var(--accent-color);
+            padding: 0.35rem 0.75rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: 1px solid rgba(49, 151, 149, 0.2);
+            width: fit-content;
+        }
+
+        .calendar-icon {
+            width: 14px;
+            height: 14px;
+            margin-right: 0.4rem;
+            fill: currentColor;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
@@ -283,7 +306,25 @@
                 <div class="meta-item"><span>Academic Cycle:</span>C.Y. 2026</div>
             </div>
         </header>
-
+        <header>
+            <div class="institution">Eastern Visayas State University • Graduate Studies</div>
+            <h1>Calibration of Grand Canal Infrastructure Project</h1>
+            <div class="meta-grid">
+                <div class="meta-item"><span>Location:</span>Brgy. Campetic, Palo, Leyte</div>
+                <div class="meta-item"><span>Lead Researcher:</span>Engr. Reagyn Philip C. Raymundo</div>
+                <div class="meta-item"><span>Core Technical Team:</span>EVSU Graduate Research Group</div>
+                <div class="meta-item"><span>Academic Cycle:</span>C.Y. 2026</div>
+                <div class="meta-item published-date">
+                    <span>Published:</span>
+                    <div class="date-badge">
+                        <svg class="calendar-icon" viewBox="0 0 24 24">
+                            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                        </svg>
+                        April 2026
+                    </div>
+                </div>
+            </div>
+        </header>
         <section id="summary">
             <h2 class="section-title">1. Executive Summary</h2>
             <p>The Grand Canal Infrastructure Project located at Campetic, Palo, Leyte is a large-scale water conveyance network designed to drastically mitigate flood elevations across high-risk corridors including Candahug, Pawing, Campetic, and neighboring municipal sectors. This quantitative assessment evaluates design flow rates required to establish reliable capacity margins while completely halting low-velocity sediment stagnation inside concrete channel components.</p>
