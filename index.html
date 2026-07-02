@@ -5,6 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Engr. Ray - Home</title>
     <style>
+        /* Project Link Section Styling */
+.project-link-section {
+    padding: 2rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.project-card-container {
+    background: #ffffff;
+    border-radius: 8px;
+    border-left: 5px solid #2b6cb0; /* Matching the deep blue engineering theme */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 700px;
+    width: 100%;
+    padding: 2rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card-container:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.project-tag {
+    display: inline-block;
+    background: #e6fffa;
+    color: #319795;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.project-card-content h3 {
+    color: #1a365d;
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.project-card-content p {
+    color: #4a5568;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.project-btn {
+    display: inline-flex;
+    align-items: center;
+    background-color: #2b6cb0;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.project-btn:hover {
+    background-color: #1a365d;
+}
+
+.btn-arrow {
+    margin-left: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+.project-btn:hover .btn-arrow {
+    transform: translateX(4px);
+}
         /* Base Styles */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f9f9f9; }
