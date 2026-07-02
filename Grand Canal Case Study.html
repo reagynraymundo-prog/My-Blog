@@ -165,4 +165,242 @@
 
         h2.section-title {
             color: var(--primary-color);
-            font
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            text-align: justify;
+        }
+
+        /* Math Block & Code Presentation */
+        .formula-box {
+            background: #edf2f7;
+            padding: 1.25rem;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: #1a202c;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--accent-color);
+            font-size: 1.05rem;
+        }
+
+        /* Technical Data Matrices */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+
+        .highlight-row {
+            background-color: #e6fffa !important;
+            font-weight: bold;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="home-nav-container">
+            <a href="index.html" class="home-btn">
+                <svg class="home-icon" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+                Return to Home
+            </a>
+        </div>
+
+        <h2>MEP 312 Deliverables</h2>
+        <ul>
+            <li><a href="#summary">1. Executive Summary</a></li>
+            <li><a href="#intro">2. Introduction & Scope</a></li>
+            <li><a href="#problems">3. Challenges & Bottlenecks</a></li>
+            <li><a href="#framework">4. Analytical Framework</a></li>
+            <li><a href="#hydrology">5. Hydrologic Discharges</a></li>
+            <li><a href="#calibration">6. Calibration Strategy</a></li>
+            <li><a href="#uniformity">7. Uniformity Matrix</a></li>
+            <li><a href="#findings">8. Project Findings</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <header>
+            <div class="institution">Eastern Visayas State University • Graduate Studies</div>
+            <h1>Calibration of Grand Canal Infrastructure Project</h1>
+            <div class="meta-grid">
+                <div class="meta-item"><span>Location:</span>Brgy. Campetic, Palo, Leyte</div>
+                <div class="meta-item"><span>Lead Researcher:</span>Engr. Reagyn Philip C. Raymundo</div>
+                <div class="meta-item"><span>Core Technical Team:</span>EVSU Graduate Research Group</div>
+                <div class="meta-item"><span>Academic Cycle:</span>C.Y. 2026</div>
+            </div>
+        </header>
+
+        <section id="summary">
+            <h2 class="section-title">1. Executive Summary</h2>
+            <p>The Grand Canal Infrastructure Project located at Campetic, Palo, Leyte is a large-scale water conveyance network designed to drastically mitigate flood elevations across high-risk corridors including Candahug, Pawing, Campetic, and neighboring municipal sectors. This quantitative assessment evaluates design flow rates required to establish reliable capacity margins while completely halting low-velocity sediment stagnation inside concrete channel components.</p>
+            <p>The core framework manages non-linear variations among geometry depth, boundary friction variations, and peak storm discharge vectors. Applying a comprehensive Manning-Chézy evaluation alongside numerical root-finding algorithms, findings demonstrate that Manning parameterization delivers standard-setting modeling stability across extreme seasonal fluctuations over traditional static Chézy methods.</p>
+        </section>
+
+        <section id="intro">
+            <h2 class="section-title">2. Introduction & Background</h2>
+            <p>The target area has struggled historically under severe seasonal monsoon patterns and hydrological changes, repeatedly damaging traditional earth channels through systematic concrete failure and sediment blockage. To counteract this vulnerability, regional frameworks initiated structural blueprints for an engineered concrete canal network. This investigation focuses specifically on analyzing a 200-meter baseline verification sector from the project's beginning benchmark to establish strict operational safety parameters.</p>
+        </section>
+
+        <section id="problems">
+            <h2 class="section-title">3. Core Technical Challenges</h2>
+            <p><strong>Implicit Geometry Relationships:</strong> Because water depth dynamically modifies both cross-sectional surface boundary areas ($A$) and wetted profiles ($P$), the critical core parameter of Hydraulic Radius ($R = A/P$) stays deeply hidden as an implicit parameter inside structural calculations, stopping direct linear algebraic extraction.</p>
+            <p><strong>Friction Coefficient Variations:</strong> Relying on flat, static resistance estimates risks significantly under-representing friction losses during severe storm conditions. Such conditions generate localized channel boundary shear layers that can accelerate systemic concrete lining degradation.</p>
+        </section>
+
+        <section id="framework">
+            <h2 class="section-title">4. Analytical Framework</h2>
+            <p>The quantitative framework models uniform flow dynamics using physical constants alongside primary hydraulics governing calculations:</p>
+            
+            <div class="formula-box">
+                Manning's Equation:<br>
+                Q = (1 / n) * A * R^(2/3) * S^(1/2)
+            </div>
+
+            <div class="formula-box">
+                Chézy Formula:<br>
+                V = C * √(R * S)
+            </div>
+            <p>Where $Q$ represents volumetric discharge rate ($m^3/s$), $V$ indicates structural velocity ($m/s$), $n$ represents the physical material roughness factor ($0.018$ for structured concrete), $C$ scales the calculated boundary parameter ($53.884$), and $S$ models the structural longitudinal bed slope ($0.00094527$).</p>
+        </section>
+
+        <section id="hydrology">
+            <h2 class="section-title">5. Hydrologic Flood Discharges</h2>
+            <p>To establish safe capacity ceilings, regional regression equations are evaluated for a targeted 50-year storm return sequence across structural catchment surfaces:</p>
+            <div class="formula-box">
+                Region VIII Regression Curve Equation:<br>
+                Log Q = 1.201 + 0.858 * Log A
+            </div>
+            <ul>
+                <li><strong>Normal Mountain Catchment Runoff:</strong> Area = 0.409632 km² &rarr; Q = 7.3864 m³/sec</li>
+                <li><strong>Corridor Section 1 Runoff Capacity:</strong> Area = 2.981532 km² &rarr; Q = 40.5573 m³/sec</li>
+                <li><strong>Corridor Section 2 Peak Contribution:</strong> Area = 2.879404 km² &rarr; Q = 39.3624 m³/sec</li>
+                <li><strong>Combined Design Flood Baseline:</strong> Q_total = 79.9197 m³/sec</li>
+            </ul>
+        </section>
+
+        <section id="calibration">
+            <h2 class="section-title">6. Canal Calibration Matrix</h2>
+            <p>Evaluations evaluate three target operating profiles using CAD-derived physical boundaries:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Operating Environment</th>
+                        <th>Target Stage Depth (m)</th>
+                        <th>Wetted Surface Area (m²)</th>
+                        <th>Manning Flow (m³/s)</th>
+                        <th>Chézy Flow (m³/s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>El Niño Conditions</td>
+                        <td>0.22 m</td>
+                        <td>3.6058 m²</td>
+                        <td>2.2234 m³/s</td>
+                        <td>2.7820 m³/s</td>
+                    </tr>
+                    <tr>
+                        <td>Normal Operation</td>
+                        <td>0.44 m</td>
+                        <td>7.3979 m²</td>
+                        <td>7.1802 m³/s</td>
+                        <td>8.0210 m³/s</td>
+                    </tr>
+                    <tr class="highlight-row">
+                        <td>Design Flood Ceiling</td>
+                        <td>3.00 m</td>
+                        <td>57.0000 m²</td>
+                        <td>171.0000 m³/s</td>
+                        <td>144.0770 m³/s</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="uniformity">
+            <h2 class="section-title">7. Flow Uniformity & Critical Depth</h2>
+            <p>Froude Number ($Fr$) and Critical Depth ($y_c$) metrics are evaluated to track changing profile boundaries under varying discharges:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Scenario State</th>
+                        <th>Froude Velocity Index (Fr)</th>
+                        <th>Calculated Critical Depth (yc)</th>
+                        <th>Flow Status Classification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>El Niño Level</td>
+                        <td>0.1947</td>
+                        <td>0.1249 m</td>
+                        <td>Subcritical (Tranquil Flow)</td>
+                    </tr>
+                    <tr>
+                        <td>Normal Level</td>
+                        <td>0.4702</td>
+                        <td>0.2722 m</td>
+                        <td>Subcritical (Tranquil Flow)</td>
+                    </tr>
+                    <tr>
+                        <td>Design Maximum</td>
+                        <td>0.8519</td>
+                        <td>2.1624 m</td>
+                        <td>Subcritical (Tranquil Flow)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="findings">
+            <h2 class="section-title">8. Core Findings & Strategic Direction</h2>
+            <p><strong>System Capacity Security:</strong> Model verifications demonstrate that at the full maximum design stage height of 3.0 meters, the canal framework handles a volumetric capacity limit of 171.00 m³/sec. Compared against the regression severe flood flow requirements ($79.9197$ m³/sec), this specific concrete geometry delivers an advanced structural capacity envelope of over 214%. This structural performance safety margin confirms the infrastructure is fully compliant with regional protection requirements, provided cross-sectional slope boundaries are strictly implemented during field placement operations.</p>
+        </section>
+    </main>
+
+</body>
+</html>
