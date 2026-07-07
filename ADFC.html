@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Circle in Tacloban: From ADFC Student to Instructor</title>
+    
+    <!-- Font Awesome for clean portal icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f7fafc !important;
+            color: #2d3748 !important;
+            line-height: 1.8;
+            padding: 0;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        header a {
+            color: #2b6cb0;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        header a:hover {
+            color: #1a365d;
+        }
+
+        /* Portal Button - Cyan Accent */
+        .portal-btn {
+            background: #319795;
+            color: #ffffff !important;
+            padding: 10px 20px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem !important;
+            font-weight: 600;
+            transition: background 0.2s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(49, 151, 149, 0.2);
+        }
+
+        .portal-btn:hover {
+            background: #234e52;
+            transform: translateY(-1px);
+        }
+
+        .blog-container {
+            max-width: 750px;
+            margin: 50px auto;
+            padding: 0 20px;
+            display: block !important;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #1a365d;
+            line-height: 1.25;
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .meta-data {
+            font-size: 0.85rem;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .blog-image {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 15px 0 25px 0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            display: block;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            color: #1a365d;
+            margin-top: 45px;
+            margin-bottom: 15px;
+            border-left: 4px solid #319795;
+            padding-left: 15px;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: #4a5568;
+        }
+
+        .lead {
+            font-size: 1.25rem;
+            color: #2d3748;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #e2e8f0;
+            margin: 40px 0;
+        }
+
+        ul {
+            margin-bottom: 30px;
+            padding-left: 20px;
+        }
+
+        li {
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+            color: #4a5568;
+        }
+
+        li strong {
+            color: #1a365d;
+        }
+
+        blockquote {
+            background-color: #e6fffa;
+            border-left: 4px solid #319795;
+            padding: 25px;
+            margin: 35px 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #234e52;
+            font-size: 1.15rem;
+        }
+
+        /* Refined Portal Callout Box in Soft Blue/Cyan Tint */
+        .portal-callout-box {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid #2b6cb0;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            text-align: center;
+        }
+
+        .portal-callout-box h4 {
+            color: #1a365d;
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .portal-callout-box p {
+            font-size: 0.95rem;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background-color: #1a365d;
+            color: #ffffff;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9rem;
+            margin-top: 80px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <a href="Front Page.html">← Back to Home</a>
+        <a href="https://adfcollege.com/register" target="_blank" class="portal-btn">
+            <i class="fa-solid fa-user-shield"></i> ADFC Portal
+        </a>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="blog-container">
+        <article>
+            <h1>Full Circle in Tacloban: From ADFC Engineering Student to Instructor</h1>
+            <div class="meta-data">Posted by Engr. Ray • Academic Reflections & Mentorship</div>
+
+            <!-- PICTURE 1 -->
+            <img src="https://via.placeholder.com/750x350" alt="Full Circle Cover Journey" class="blog-image">
+
+            <p class="lead">Eighteen months ago, I walked back through the gates of Asian Development Foundation College. But I wasn't carrying a heavy backpack filled with crumpled tracing paper, a calculator, and a mild sense of academic panic. This time, I had a faculty ID, a box of whiteboard markers, and a class roster.</p>
+
+            <p>1.5 years. Three semesters as a Civil Engineering instructor at the very institution that molded me.</p>
+
+            <p>It is a surreal feeling to stand at the front of a classroom where you once sat in the back row, praying the professor wouldn’t call on you to explain a complex differential equation on the board. Looking back at my first 18 months on the other side of the podium, here is what it feels like to teach where you learned.</p>
+
+            <hr>
+
+            <h3>1. Sitting in the Back Row vs. Standing at the Front</h3>
+            <p>Every time I walk into a lecture hall at ADFC, I get a sudden flash of deja vu. I look at the students sitting near the windows, trying to catch a breeze on a hot Tacloban afternoon, and I see myself from a few years ago.</p>
+
+            <p>I know exactly which topics make their eyes glaze over because those same topics kept me awake at 2:00 AM when I was in their shoes. When we dive into the Manning-Chézy evaluation matrices or tackle an intricate open-channel hydraulics calibration framework, I don't just teach the formulas—I remember the exact mental blockages I had when I first encountered them.</p>
+
+            <p>Being an alumnus means you can't hide behind a rigid "professor" persona. I know the shortcuts they try to take, I know the exact level of stress they are under during finals week, and most importantly, I know they are capable of surviving it—because I did.</p>
+
+            <h3>2. Passing the Torch to the Next Generation of Builders</h3>
+            
+            <!-- PICTURE 2 -->
+            <img src="https://via.placeholder.com/750x350" alt="Civil Engineering Class Interaction" class="blog-image">
+
+            <p>Engineering in Leyte isn't just an abstract career path; it’s a commitment to our communities. When we study cross-sectional fluid variables or regional regression transformations for Palo and Leyte, it hits differently.</p>
+
+            <p>As a former student, I remember the exact moment it clicked for me that the numbers on my drafting paper would eventually turn into real-world drainage canals, bridges, and flood mitigation structures protecting our families.</p>
+
+            <blockquote>
+                "Now, my greatest reward is watching that same realization dawn on my own students. There is nothing quite like seeing a student who was completely stuck on a structural theory suddenly get that 'aha!' moment."
+            </blockquote>
+
+            <p>I’m not just prepping them to pass their exams; I'm helping them build the foundation to become my future colleagues in the field.</p>
+
+            <!-- CALLOUT BOX: Cyan Accented Clickable Portal Link -->
+            <div class="portal-callout-box">
+                <h4>Are you a current ADFC Engineering Student?</h4>
+                <p>Access your grades, enrollment schedules, evaluation metrics, and institutional updates directly via the official community network portal.</p>
+                <a href="https://adfcollege.com/register" target="_blank" class="portal-btn" style="padding: 12px 24px; font-size: 1rem !important;">
+                    <i class="fa-solid fa-graduation-cap"></i> Launch ADFC Student Portal
+                </a>
+            </div>
+
+            <h3>3. The 1.5-Year Inspection Report</h3>
+            
+            <!-- PICTURE 3 -->
+            <img src="https://via.placeholder.com/750x350" alt="1.5 Year Review Milestone" class="blog-image">
+
+            <p>Transitioning from student to peer with my former professors has been an incredible masterclass in humility and professional growth.</p>
+
+            <ul>
+                <li><strong>The classroom is a living structure:</strong> You can design the perfect lesson plan, but just like a real construction site, you have to adapt when unexpected variables pop up.</li>
+                <li><strong>Empathy is a structural material:</strong> Having survived the grit and pressure of the ADFC engineering program allows me to push my students hard because they know I understand the weight of what they are carrying.</li>
+                <li><strong>The legacy continues:</strong> The raw talent, resourcefulness, and determination walking the halls of ADFC today are just as fierce as they've ever been.</li>
+            </ul>
+
+            <h3>The Blueprint Continues</h3>
+            
+            <!-- PICTURE 4 -->
+            <img src="https://via.placeholder.com/750x350" alt="Looking Toward the Future" class="blog-image">
+
+            <p>One and a half years ago, I thought my job was just going to be about teaching concrete grades, fluid dynamics, and grading quizzes. I didn't realize it would be an 18-month lesson in giving back to the community that gave me my start.</p>
+            
+            <p>To my former teachers who are now my colleagues, thank you for guiding me. And to my students who are currently grinding through my problem sets—hang in there. I know exactly how hard the seat you're sitting in is, but I also know exactly where it can take you.</p>
+
+            <p>Let's keep building.</p>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Engr. Ray. All Rights Reserved. Built with Engineering Precision.</p>
+    </footer>
+
+</body>
+</html>
