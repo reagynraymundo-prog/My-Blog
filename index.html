@@ -5,81 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Engr. Ray - Home</title>
     <style>
-        /* Project Link Section Styling */
-.project-link-section {
-    padding: 2rem 0;
-    display: flex;
-    justify-content: center;
-}
-
-.project-card-container {
-    background: #ffffff;
-    border-radius: 8px;
-    border-left: 5px solid #2b6cb0; /* Matching the deep blue engineering theme */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    max-width: 700px;
-    width: 100%;
-    padding: 2rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.project-card-container:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-}
-
-.project-tag {
-    display: inline-block;
-    background: #e6fffa;
-    color: #319795;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 0.25rem 0.75rem;
-    border-radius: 50px;
-    margin-bottom: 1rem;
-    letter-spacing: 0.5px;
-}
-
-.project-card-content h3 {
-    color: #1a365d;
-    font-size: 1.4rem;
-    margin-bottom: 0.75rem;
-    font-family: system-ui, -apple-system, sans-serif;
-}
-
-.project-card-content p {
-    color: #4a5568;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-}
-
-.project-btn {
-    display: inline-flex;
-    align-items: center;
-    background-color: #2b6cb0;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    transition: background-color 0.2s ease;
-}
-
-.project-btn:hover {
-    background-color: #1a365d;
-}
-
-.btn-arrow {
-    margin-left: 0.5rem;
-    transition: transform 0.2s ease;
-}
-
-.project-btn:hover .btn-arrow {
-    transform: translateX(4px);
-}
         /* Base Styles */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f9f9f9; }
@@ -90,41 +15,62 @@
         .nav-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 20px; }
         .logo { font-size: 24px; font-weight: bold; color: #2c3e50; }
         .nav-links { list-style: none; display: flex; gap: 20px; }
-        .nav-links a:hover, .nav-links a.active { color: #3498db; font-weight: bold; }
+        .nav-links a:hover, .nav-links a.active { color: #2b6cb0; font-weight: bold; }
 
-        /* Hero */
-        .hero { background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1100&q=80') no-repeat center center/cover; color: #fff; height: 400px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
-        .hero h1 { font-size: 48px; margin-bottom: 10px; }
-        .hero p { font-size: 20px; max-width: 600px; }
+        /* Hero Section */
+        .hero { background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1100&q=80') no-repeat center center/cover; color: #fff; height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
+        .hero h1 { font-size: 44px; margin-bottom: 10px; font-weight: 700; letter-spacing: -0.5px; }
+        .hero p { font-size: 18px; max-width: 600px; color: #e2e8f0; }
 
-        /* Grid Layout */
-        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+        /* Structural Page Layout Components */
+        .container { max-width: 1100px; margin: 40px auto 20px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
         .main-content { display: flex; flex-direction: column; gap: 30px; }
-        
-        /* Post Cards */
-        .post-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.2s; }
-        .post-card:hover { transform: translateY(-5px); }
-        .post-img { width: 100%; height: 250px; object-fit: cover; }
-        .post-content { padding: 25px; }
-        .post-meta { font-size: 14px; color: #7f8c8d; margin-bottom: 10px; }
-        .post-title { font-size: 24px; margin-bottom: 15px; color: #2c3e50; }
-        .post-title a:hover { color: #3498db; }
-        .post-excerpt { color: #555; margin-bottom: 15px; }
-        .read-more { color: #3498db; font-weight: bold; }
-
-        /* Sidebar Widgets */
         .sidebar { display: flex; flex-direction: column; gap: 30px; }
-        .widget { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .widget h3 { margin-bottom: 15px; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px; font-size: 18px; }
-        .author-img { width: 100px; height: 100px; border-radius: 50%; margin-bottom: 15px; object-fit: cover; }
-        .categories-list { list-style: none; }
-        .categories-list li { padding: 8px 0; border-bottom: 1px solid #eee; }
-        .categories-list a:hover { color: #3498db; }
+        
+        /* Premium Post Cards Layout */
+        .post-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eef2f5; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .post-card:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,0.1); }
+        .post-img { width: 100%; height: 230px; object-fit: cover; display: block; }
+        .post-content { padding: 25px; }
+        .post-meta { font-size: 13px; color: #8a8a9e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; font-weight: 600; }
+        .post-title { font-size: 1.4rem; margin-bottom: 12px; color: #1a1a24; font-weight: 700; line-height: 1.3; }
+        .post-title a { color: #1a1a24; }
+        .post-title a:hover { color: #2b6cb0; }
+        .post-excerpt { color: #505064; font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5; }
+        .read-more { color: #2b6cb0; font-weight: 600; font-size: 0.9rem; }
+        .read-more:hover { color: #1a365d; }
 
-        footer { background-color: #2c3e50; color: #fff; text-align: center; padding: 20px; margin-top: 40px; }
+        /* Sidebar Standard Widgets */
+        .widget { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border: 1px solid #e1e8ed; }
+        .widget h3 { font-family: 'Segoe UI', Arial, sans-serif; font-size: 1.1rem; font-weight: 700; color: #1a202c; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+        .author-img { width: 90px; height: 90px; border-radius: 50%; margin-bottom: 15px; object-fit: cover; border: 2px solid #e2e8f0; }
+        
+        /* Social Media Sidebar Buttons */
+        .sidebar-links-group { display: flex; flex-direction: column; gap: 12px; }
+        .sidebar-btn { display: flex; align-items: center; padding: 12px 16px; text-decoration: none; color: #ffffff; font-weight: 600; font-size: 0.95rem; border-radius: 6px; transition: transform 0.15s ease, filter 0.15s ease; }
+        .sidebar-btn:hover { transform: translateX(4px); filter: brightness(1.1); }
+        .sidebar-btn .icon { margin-right: 12px; font-size: 1.1rem; display: inline-block; width: 16px; text-align: center; }
+        .tiktok { background: #000000; }
+        .youtube { background: #e52d27; }
+        .facebook { background: #3b5998; }
 
+        /* Project Feature Section Base Container */
+        .project-link-section { max-width: 1100px; margin: 0 auto 40px auto; padding: 0 20px; }
+        .project-card-container { background: #ffffff; border-radius: 8px; border-left: 5px solid #2b6cb0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border-top: 1px solid #eef2f5; border-right: 1px solid #eef2f5; border-bottom: 1px solid #eef2f5; padding: 2rem; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .project-card-container:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); }
+        .project-tag { display: inline-block; background: #e6fffa; color: #319795; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; padding: 0.25rem 0.75rem; border-radius: 50px; margin-bottom: 1rem; letter-spacing: 0.5px; }
+        .project-card-content h3 { color: #1a365d; font-size: 1.4rem; margin-bottom: 0.75rem; }
+        .project-card-content p { color: #4a5568; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
+        .project-btn { display: inline-flex; align-items: center; background-color: #2b6cb0; color: #ffffff; padding: 0.75rem 1.5rem; border-radius: 6px; font-size: 0.95rem; font-weight: 600; }
+        .project-btn:hover { background-color: #1a365d; }
+        .btn-arrow { margin-left: 0.5rem; transition: transform 0.2s ease; }
+        .project-btn:hover .btn-arrow { transform: translateX(4px); }
+
+        footer { background-color: #2c3e50; color: #fff; text-align: center; padding: 25px; font-size: 0.9rem; }
+
+        /* Responsive Grid Changes */
         @media (max-width: 768px) {
-            .container { grid-template-columns: 1fr; }
+            .container { grid-template-columns: 1fr; gap: 30px; margin: 20px auto; }
             .hero h1 { font-size: 32px; }
         }
     </style>
@@ -146,30 +92,21 @@
         <h1>The Best Engineer in Town is here!</h1>
         <p>Sharing stories, tutorials, and perspectives on technology, design, and life.</p>
     </section>
-<div class="blog-card" style="margin-bottom: 30px; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #eef2f5;">
-    <img src="https://via.placeholder.com/750x350" alt="War of Dragons Blog Cover" style="width: 100%; height: auto; max-height: 200px; object-fit: cover; display: block;">
-    
-    <div style="padding: 25px;">
-        <p style="font-family: 'Segoe UI', sans-serif; font-size: 0.8rem; color: #8a8a9e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">
-            July 07, 2026 • Gaming History
-        </p>
-        
-        <h2 style="font-family: 'Segoe UI', sans-serif; font-size: 1.4rem; color: #1a1a24; margin-bottom: 12px; font-weight: 700; line-height: 1.3;">
-            The Last of the Titan Web RPGs: Why War of Dragons Still Refuses to Die
-        </h2>
-        
-        <p style="font-family: 'Segoe UI', sans-serif; font-size: 0.95rem; color: #505064; line-height: 1.5; margin-bottom: 20px;">
-            Before massive 100GB clients and battle passes dominated our hard drives, we had text fields, static maps, and sheer imagination. Explore the brutal, brilliant world of Faeo...
-        </p>
-        
-        <a href="blog.html" style="font-family: 'Segoe UI', sans-serif; font-size: 0.9rem; color: #1877f2; text-decoration: none; font-weight: 600; display: inline-block;">
-            Read Full Article &rarr;
-        </a>
-    </div>
-</div>
+
     <div class="container">
+        
         <main class="main-content">
-            <!-- Article 1 Link -->
+            
+            <article class="post-card">
+                <img src="https://via.placeholder.com/750x350" alt="War of Dragons Blog Cover" class="post-img">
+                <div class="post-content">
+                    <div class="post-meta">July 07, 2026 • Gaming History</div>
+                    <h2 class="post-title"><a href="blog.html">The Last of the Titan Web RPGs: Why War of Dragons Still Refuses to Die</a></h2>
+                    <p class="post-excerpt">Before massive 100GB clients and battle passes dominated our hard drives, we had text fields, static maps, and sheer imagination. Explore the brutal, brilliant world of Faeo...</p>
+                    <a href="blog.html" class="read-more">Read Full Article &rarr;</a>
+                </div>
+            </article>
+
             <article class="post-card">
                 <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80" alt="Tech" class="post-img">
                 <div class="post-content">
@@ -179,119 +116,51 @@
                     <a href="Full Article.html" class="read-more">Read Full Article &rarr;</a>
                 </div>
             </article>
+
         </main>
-        <div class="social-sidebar-widget">
-    <div class="widget-title">Connect With Me</div>
-    <div class="sidebar-links-group">
-        <!-- TikTok -->
-        <a href="https://www.tiktok.com/@rozenzi_akim" target="_blank" class="sidebar-btn tiktok">
-            <span class="icon">♪</span> TikTok
-        </a>
 
-        <!-- YouTube -->
-        <a href="https://www.youtube.com/@RozenziTV1998" target="_blank" class="sidebar-btn youtube">
-            <span class="icon">▶</span> YouTube
-        </a>
-
-        <!-- Facebook -->
-        <a href="https://www.facebook.com/profile.php?id=61586131904711" class="sidebar-btn facebook">
-            <span class="icon">f</span> Facebook
-        </a>
-    </div>
-</div>
-
-<style>
-    .social-sidebar-widget {
-        background: #ffffff;
-        padding: 24px;
-        border-radius: 6px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        border: 1px solid #e1e8ed;
-        margin-bottom: 20px;
-        width: 100%;
-        max-width: 320px; /* Aligns with the standard width of side column content */
-    }
-
-    .widget-title {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #1a202c;
-        margin-bottom: 16px;
-        padding-bottom: 8px;
-        border-bottom: 2px solid #e2e8f0;
-    }
-
-    .sidebar-links-group {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .sidebar-btn {
-        display: flex;
-        align-items: center;
-        padding: 12px 16px;
-        text-decoration: none;
-        color: #ffffff;
-        font-family: 'Segoe UI', Arial, sans-serif;
-        font-weight: 600;
-        font-size: 0.95rem;
-        border-radius: 4px;
-        transition: transform 0.15s ease, filter 0.15s ease;
-    }
-
-    .sidebar-btn:hover {
-        transform: translateX(4px);
-        filter: brightness(0.9);
-    }
-
-    .sidebar-btn .icon {
-        margin-right: 12px;
-        font-size: 1.1rem;
-        display: inline-block;
-        width: 16px;
-        text-align: center;
-    }
-
-    /* Platform Colors matched to clean web standards */
-    .tiktok {
-        background: #000000;
-    }
-
-    .youtube {
-        background: #e52d27;
-    }
-
-    .facebook {
-        background: #3b5998;
-    }
-</style>
-    <section class="project-link-section">
-    <div class="project-card-container">
-        <div class="project-card-content">
-            <span class="project-tag">Case Study</span>
-            <h3>Grand Canal Infrastructure Project</h3>
-            <p>An interactive data dashboard for the MEP 312 open-channel hydraulics calibration framework. Features cross-sectional fluid variables, Manning-Chézy evaluation matrices, and multi-variable regional regression transformations for Palo, Leyte.</p>
-            
-            <a href="Grand Canal Case Study.html" class="project-btn" target="_blank">
-                View Case Study 
-                <span class="btn-arrow">&rarr;</span>
-            </a>
-        </div>
-    </div>
-</section>
         <aside class="sidebar">
+            
+            <div class="widget">
+                <h3>Connect With Me</h3>
+                <div class="sidebar-links-group">
+                    <a href="https://www.tiktok.com/@rozenzi_akim" target="_blank" class="sidebar-btn tiktok">
+                        <span class="icon">♪</span> TikTok
+                    </a>
+                    <a href="https://www.youtube.com/@RozenziTV1998" target="_blank" class="sidebar-btn youtube">
+                        <span class="icon">▶</span> YouTube
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61586131904711" class="sidebar-btn facebook" target="_blank">
+                        <span class="icon">f</span> Facebook
+                    </a>
+                </div>
+            </div>
+
             <div class="widget">
                 <h3>About Me</h3>
                 <img src="https://www.image2url.com/r2/default/images/1780477914808-d471420c-b1e5-485e-97a2-c58e2486429b.jpg" alt="Author" class="author-img">
-                <p>Hi, I'm Engr. Reagyn! A passionate content creator, civil engineer, cook, and artist. <a href="About Page.html" style="color:#3498db;">Read my full story.</a></p>
+                <p>Hi, I'm Engr. Reagyn! A passionate content creator, civil engineer, cook, and artist. <a href="About Page.html" style="color:#2b6cb0; font-weight:600;">Read my full story.</a></p>
             </div>
+
         </aside>
     </div>
 
+    <section class="project-link-section">
+        <div class="project-card-container">
+            <div class="project-card-content">
+                <span class="project-tag">Case Study</span>
+                <h3>Grand Canal Infrastructure Project</h3>
+                <p>An interactive data dashboard for the MEP 312 open-channel hydraulics calibration framework. Features cross-sectional fluid variables, Manning-Chézy evaluation matrices, and multi-variable regional regression transformations for Palo, Leyte.</p>
+                <a href="Grand Canal Case Study.html" class="project-btn" target="_blank">
+                    View Case Study 
+                    <span class="btn-arrow">&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <footer>
-        <p>&copy; 2026 MyThoughts Blog.</p>
+        <p>&copy; 2026 MyThoughts Blog. Built with care.</p>
     </footer>
 
 </body>
