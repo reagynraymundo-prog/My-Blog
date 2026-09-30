@@ -1,3 +1,6 @@
+HTML
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +14,7 @@
         
         header { background-color: #fff; border-bottom: 1px solid #eaeaea; }
         .nav-container { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 20px; }
-        .logo { font-size: 24px; font-weight: bold; color: #2c3e50; }
+        .logo { font-size: 20px; font-weight: bold; color: #2c3e50; }
         .nav-links { list-style: none; display: flex; gap: 20px; }
         .nav-links a { color: #333; }
         .nav-links a.active { color: #3498db; font-weight: bold; }
@@ -23,6 +26,42 @@
         .about-text { text-align: left; font-size: 18px; color: #555; max-width: 650px; margin: 0 auto; }
         .about-text p { margin-bottom: 20px; }
         
+        /* New Credentials Section Styles */
+        .credentials-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #eaeaea;
+            text-align: left;
+        }
+        .credentials-section h2 {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .credentials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        .credential-card {
+            background: #fdfdfd;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #3498db;
+            padding: 15px 20px;
+            border-radius: 4px;
+        }
+        .credential-card h3 {
+            font-size: 16px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .credential-card p {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 0;
+        }
+
         footer { background-color: #2c3e50; color: #fff; text-align: center; padding: 20px; margin-top: 60px; position: relative; bottom: 0; width: 100%; }
     </style>
 </head>
@@ -41,7 +80,7 @@
     </header>
 
     <main class="about-container">
-        <img src="https://www.image2url.com/r2/default/images/1789260128530-eb3405a9-ee70-4b9e-aeec-584ac7b4d9d5.png" alt="Alex" class="profile-large">
+        <img src="https://www.image2url.com/r2/default/images/1789260128530-eb3405a9-ee70-4b9e-aeec-584ac7b4d9d5.png" alt="Engr. Reagyn" class="profile-large">
         <h1>Hey there, I'm Engr. Reagyn!</h1>
         <div class="subtitle">Content Creator, Civil Engineer, Cook & Artist</div>
         
@@ -49,11 +88,30 @@
             <p>Welcome to my online journey! I started this blog as a space to document my experiments in web technology, my journeys through learning UI/UX design, and everyday life philosophies.</p>
             <p>By day, I handle civil engineering designs in irrigation canals and teach civil engineering in Asian Development Foundation College. By night, I experiment with content creation and brew far too much espresso. I believe the internet should be a place full of clean, accessible, and thought-provoking content.</p>
             <p>Feel free to look around, read through my logs, or reach out if you'd like to collaborate on a digital project together!</p>
+            
+            <!-- Credentials & Background Section -->
+            <div class="credentials-section">
+                <h2>Credentials & Professional Background</h2>
+                <div class="credentials-grid">
+                    <div class="credential-card">
+                        <h3>Licensed Civil Engineer</h3>
+                        <p>Specialized in water resource and irrigation canal design infrastructure.</p>
+                    </div>
+                    <div class="credential-card">
+                        <h3>Faculty Member</h3>
+                        <p>Civil Engineering Department, Asian Development Foundation College.</p>
+                    </div>
+                    <div class="credential-card">
+                        <h3>Education & Expertise</h3>
+                        <p>B.S. in Civil Engineering — dedicated to structural and hydraulic planning.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Welcome to my Blog.</p>
+        <p>&copy; 2026 Welcome to my Blog. All rights reserved.</p>
     </footer>
 
 </body>
