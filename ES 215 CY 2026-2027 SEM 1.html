@@ -265,53 +265,53 @@
 
 <script>
     const rawGrades = [
-        { name: "ACEDILLO, EUZHAVEL", subject: "ES215", prelims: "3.3", midterm: "4.2", grade: "3.9" },
-        { name: "AGUIRRE, MARK", subject: "ES215", prelims: "3.7", midterm: "5.0", grade: "3.9" },
-        { name: "ALMADEN, JOHN", subject: "ES215", prelims: "3.3", midterm: "2.9", grade: "2.5" },
-        { name: "ARALAN, JEDRIC", subject: "ES215", prelims: "3.7", midterm: "4.7", grade: "3.7" },
-        { name: "AVILA, JEANNE JOCKLYN", subject: "ES215", prelims: "3.0", midterm: "4.7", grade: "3.6" },
-        { name: "BARBOSA, ANN MYREL", subject: "ES215", prelims: "4.3", midterm: "5.0", grade: "4.2" },
-        { name: "BARTOLOME", subject: "ES215", prelims: "3.3", midterm: "4.2", grade: "3.4" },
-        { name: "BIDUA, ETHAN MARCUS", subject: "ES215", prelims: "3.7", midterm: "4.7", grade: "3.8" },
-        { name: "BOTORRES, RENDEL", subject: "ES215", prelims: "5.0", midterm: "2.9", grade: "2.9" },
-        { name: "CABELTIS, DRIESDLLE", subject: "ES215", prelims: "3.7", midterm: "4.7", grade: "3.7" },
-        { name: "CALDONA, LIANNE JANE", subject: "ES215", prelims: "2.3", midterm: "4.5", grade: "3.2" },
-        { name: "CARCELLAR, MYNA JOY", subject: "ES215", prelims: "1.7", midterm: "3.9", grade: "2.9" },
-        { name: "CASE, JONNA MAE", subject: "ES215", prelims: "3.3", midterm: "4.2", grade: "3.4" },
-        { name: "CASIL, YVIZ TYRON", subject: "ES215", prelims: "5.0", midterm: "5.0", grade: "4.4" },
-        { name: "CINCO, JONAS", subject: "ES215", prelims: "2.3", midterm: "3.7", grade: "2.8" },
-        { name: "DAGAMI, JAN CLIFFORD KEITH", subject: "ES215", prelims: "4.7", midterm: "5.0", grade: "4.5" },
-        { name: "DE ASIS", subject: "ES215", prelims: "3.3", midterm: "4.2", grade: "3.1" },
-        { name: "DELA PEÑA, TRIXE", subject: "ES215", prelims: "2.7", midterm: "3.9", grade: "3.4" },
-        { name: "DUERO, JEFF", subject: "ES215", prelims: "4.0", midterm: "5.0", grade: "3.6" },
-        { name: "ENAGE, SHAWN", subject: "ES215", prelims: "5.0", midterm: "5.0", grade: "4.3" },
-        { name: "ENCALLADO, CENDRIX", subject: "ES215", prelims: "5.0", midterm: "2.1", grade: "2.8" },
-        { name: "ESCALA, LAWRENCE", subject: "ES215", prelims: "-", midterm: "-", grade: "-" },
-        { name: "GACITA, MARRION DARREN", subject: "ES215", prelims: "3.0", midterm: "5.0", grade: "3.6" },
-        { name: "GALLAZA, SAM LLOYD", subject: "ES215", prelims: "2.7", midterm: "4.7", grade: "3.6" },
-        { name: "LAGARTO, JASTENE", subject: "ES215", prelims: "2.0", midterm: "4.7", grade: "3.2" },
-        { name: "LANDRITO, JOSH ANDRE", subject: "ES215", prelims: "4.3", midterm: "5.0", grade: "4.2" },
-        { name: "LAVENTE, JOH PHILIP", subject: "ES215", prelims: "3.7", midterm: "5.0", grade: "4.1" },
-        { name: "LICO, JANICE", subject: "ES215", prelims: "1.7", midterm: "4.5", grade: "3.4" },
-        { name: "LOPEZ, GLENEZ", subject: "ES215", prelims: "5.0", midterm: "5.0", grade: "4.1" },
-        { name: "MABULAC, BENITO, JR.", subject: "ES215", prelims: "3.0", midterm: "3.9", grade: "3.0" },
-        { name: "MACABUHAY, KISSHA", subject: "ES215", prelims: "2.7", midterm: "1.3", grade: "1.8" },
-        { name: "MADERSE, MAYLENE", subject: "ES215", prelims: "4.0", midterm: "4.5", grade: "3.5" },
-        { name: "MALINDOG, ANGELIKA", subject: "ES215", prelims: "4.0", midterm: "4.7", grade: "3.7" },
-        { name: "MANUEL, JOEMAR, JR.", subject: "ES215", prelims: "4.0", midterm: "4.5", grade: "3.9" },
-        { name: "MODINA, KAISER JAY", subject: "ES215", prelims: "1.0", midterm: "2.9", grade: "2.3" },
-        { name: "MORENO, JOHN RAY", subject: "ES215", prelims: "4.0", midterm: "5.0", grade: "3.8" },
-        { name: "NIONES, WINDY MAE", subject: "ES215", prelims: "3.3", midterm: "3.9", grade: "3.4" },
-        { name: "PESEDAS, NATHANIEL ASHLEY", subject: "ES215", prelims: "3.3", midterm: "3.1", grade: "3.1" },
-        { name: "POLIC, ALTHEA MARIE", subject: "ES215", prelims: "3.0", midterm: "4.2", grade: "4.0" },
-        { name: "REGINA, NEIL PATHRICK", subject: "ES215", prelims: "1.3", midterm: "1.5", grade: "1.7" },
-        { name: "REPOSO, ASHLY", subject: "ES215", prelims: "2.7", midterm: "5.0", grade: "3.6" },
-        { name: "SABARILLO, DAVID CARL", subject: "ES215", prelims: "4.3", midterm: "4.7", grade: "4.2" },
-        { name: "SALVEDIA, RHAZZAMHER", subject: "ES215", prelims: "4.7", midterm: "5.0", grade: "3.9" },
-        { name: "TILLE, ALBERT", subject: "ES215", prelims: "5.0", midterm: "5.0", grade: "4.3" },
-        { name: "VILLAFLOR, KHALIL VAN", subject: "ES215", prelims: "4.3", midterm: "5.0", grade: "4.0" },
-        { name: "VILLARENTE, RHEA MAE", subject: "ES215", prelims: "3.7", midterm: "3.7", grade: "3.3" },
-        { name: "VIOLANTE, CARL ERIK", subject: "ES215", prelims: "3.3", midterm: "2.9", grade: "2.9" }
+        { name: "ACEDILLO, EUZHAVEL", subject: "ES215", prelimExam: "3.3", midtermExam: "4.2", midtermGrade: "3.9" },
+        { name: "AGUIRRE, MARK", subject: "ES215", prelimExam: "3.7", midtermExam: "5.0", midtermGrade: "3.9" },
+        { name: "ALMADEN, JOHN", subject: "ES215", prelimExam: "3.3", midtermExam: "2.9", midtermGrade: "2.5" },
+        { name: "ARALAN, JEDRIC", subject: "ES215", prelimExam: "3.7", midtermExam: "4.7", midtermGrade: "3.7" },
+        { name: "AVILA, JEANNE JOCKLYN", subject: "ES215", prelimExam: "3.0", midtermExam: "4.7", midtermGrade: "3.6" },
+        { name: "BARBOSA, ANN MYREL", subject: "ES215", prelimExam: "4.3", midtermExam: "5.0", midtermGrade: "4.2" },
+        { name: "BARTOLOME", subject: "ES215", prelimExam: "3.3", midtermExam: "4.2", midtermGrade: "3.4" },
+        { name: "BIDUA, ETHAN MARCUS", subject: "ES215", prelimExam: "3.7", midtermExam: "4.7", midtermGrade: "3.8" },
+        { name: "BOTORRES, RENDEL", subject: "ES215", prelimExam: "5.0", midtermExam: "2.9", midtermGrade: "2.9" },
+        { name: "CABELTIS, DRIESDLLE", subject: "ES215", prelimExam: "3.7", midtermExam: "4.7", midtermGrade: "3.7" },
+        { name: "CALDONA, LIANNE JANE", subject: "ES215", prelimExam: "2.3", midtermExam: "4.5", midtermGrade: "3.2" },
+        { name: "CARCELLAR, MYNA JOY", subject: "ES215", prelimExam: "1.7", midtermExam: "3.9", midtermGrade: "2.9" },
+        { name: "CASE, JONNA MAE", subject: "ES215", prelimExam: "3.3", midtermExam: "4.2", midtermGrade: "3.4" },
+        { name: "CASIL, YVIZ TYRON", subject: "ES215", prelimExam: "5.0", midtermExam: "5.0", midtermGrade: "4.4" },
+        { name: "CINCO, JONAS", subject: "ES215", prelimExam: "2.3", midtermExam: "3.7", midtermGrade: "2.8" },
+        { name: "DAGAMI, JAN CLIFFORD KEITH", subject: "ES215", prelimExam: "4.7", midtermExam: "5.0", midtermGrade: "4.5" },
+        { name: "DE ASIS", subject: "ES215", prelimExam: "3.3", midtermExam: "4.2", midtermGrade: "3.1" },
+        { name: "DELA PEÑA, TRIXE", subject: "ES215", prelimExam: "2.7", midtermExam: "3.9", midtermGrade: "3.4" },
+        { name: "DUERO, JEFF", subject: "ES215", prelimExam: "4.0", midtermExam: "5.0", midtermGrade: "3.6" },
+        { name: "ENAGE, SHAWN", subject: "ES215", prelimExam: "5.0", midtermExam: "5.0", midtermGrade: "4.3" },
+        { name: "ENCALLADO, CENDRIX", subject: "ES215", prelimExam: "5.0", midtermExam: "2.1", midtermGrade: "2.8" },
+        { name: "ESCALA, LAWRENCE", subject: "ES215", prelimExam: "-", midtermExam: "-", midtermGrade: "-" },
+        { name: "GACITA, MARRION DARREN", subject: "ES215", prelimExam: "3.0", midtermExam: "5.0", midtermGrade: "3.6" },
+        { name: "GALLAZA, SAM LLOYD", subject: "ES215", prelimExam: "2.7", midtermExam: "4.7", midtermGrade: "3.6" },
+        { name: "LAGARTO, JASTENE", subject: "ES215", prelimExam: "2.0", midtermExam: "4.7", midtermGrade: "3.2" },
+        { name: "LANDRITO, JOSH ANDRE", subject: "ES215", prelimExam: "4.3", midtermExam: "5.0", midtermGrade: "4.2" },
+        { name: "LAVENTE, JOH PHILIP", subject: "ES215", prelimExam: "3.7", midtermExam: "5.0", midtermGrade: "4.1" },
+        { name: "LICO, JANICE", subject: "ES215", prelimExam: "1.7", midtermExam: "4.5", midtermGrade: "3.4" },
+        { name: "LOPEZ, GLENEZ", subject: "ES215", prelimExam: "5.0", midtermExam: "5.0", midtermGrade: "4.1" },
+        { name: "MABULAC, BENITO, JR.", subject: "ES215", prelimExam: "3.0", midtermExam: "3.9", midtermGrade: "3.0" },
+        { name: "MACABUHAY, KISSHA", subject: "ES215", prelimExam: "2.7", midtermExam: "1.3", midtermGrade: "1.8" },
+        { name: "MADERSE, MAYLENE", subject: "ES215", prelimExam: "4.0", midtermExam: "4.5", midtermGrade: "3.5" },
+        { name: "MALINDOG, ANGELIKA", subject: "ES215", prelimExam: "4.0", midtermExam: "4.7", midtermGrade: "3.7" },
+        { name: "MANUEL, JOEMAR, JR.", subject: "ES215", prelimExam: "4.0", midtermExam: "4.5", midtermGrade: "3.9" },
+        { name: "MODINA, KAISER JAY", subject: "ES215", prelimExam: "1.0", midtermExam: "2.9", midtermGrade: "2.3" },
+        { name: "MORENO, JOHN RAY", subject: "ES215", prelimExam: "4.0", midtermExam: "5.0", midtermGrade: "3.8" },
+        { name: "NIONES, WINDY MAE", subject: "ES215", prelimExam: "3.3", midtermExam: "3.9", midtermGrade: "3.4" },
+        { name: "PESEDAS, NATHANIEL ASHLEY", subject: "ES215", prelimExam: "3.3", midtermExam: "3.1", midtermGrade: "3.1" },
+        { name: "POLIC, ALTHEA MARIE", subject: "ES215", prelimExam: "3.0", midtermExam: "4.2", midtermGrade: "4.0" },
+        { name: "REGINA, NEIL PATHRICK", subject: "ES215", prelimExam: "1.3", midtermExam: "1.5", midtermGrade: "1.7" },
+        { name: "REPOSO, ASHLY", subject: "ES215", prelimExam: "2.7", midtermExam: "5.0", midtermGrade: "3.6" },
+        { name: "SABARILLO, DAVID CARL", subject: "ES215", prelimExam: "4.3", midtermExam: "4.7", midtermGrade: "4.2" },
+        { name: "SALVEDIA, RHAZZAMHER", subject: "ES215", prelimExam: "4.7", midtermExam: "5.0", midtermGrade: "3.9" },
+        { name: "TILLE, ALBERT", subject: "ES215", prelimExam: "5.0", midtermExam: "5.0", midtermGrade: "4.3" },
+        { name: "VILLAFLOR, KHALIL VAN", subject: "ES215", prelimExam: "4.3", midtermExam: "5.0", midtermGrade: "4.0" },
+        { name: "VILLARENTE, RHEA MAE", subject: "ES215", prelimExam: "3.7", midtermExam: "3.7", midtermGrade: "3.3" },
+        { name: "VIOLANTE, CARL ERIK", subject: "ES215", prelimExam: "3.3", midtermExam: "2.9", midtermGrade: "2.9" }
     ];
 
     function getRemarks(gradeVal) {
@@ -324,12 +324,12 @@
 
     // Leaderboard calculation (Dense ranking for ties)
     function calculateDenseSubjectRanks(subjectCode) {
-        let subjectStudents = rawGrades.filter(s => s.subject === subjectCode && !isNaN(parseFloat(s.grade)) && getRemarks(s.grade) === "Passed");
-        subjectStudents.sort((a, b) => parseFloat(a.grade) - parseFloat(b.grade));
+        let subjectStudents = rawGrades.filter(s => s.subject === subjectCode && !isNaN(parseFloat(s.midtermGrade)) && getRemarks(s.midtermGrade) === "Passed");
+        subjectStudents.sort((a, b) => parseFloat(a.midtermGrade) - parseFloat(b.midtermGrade));
         let rankMap = {};
         let currentRank = 1;
         for (let i = 0; i < subjectStudents.length; i++) {
-            if (i > 0 && parseFloat(subjectStudents[i].grade) > parseFloat(subjectStudents[i-1].grade)) { currentRank++; }
+            if (i > 0 && parseFloat(subjectStudents[i].midtermGrade) > parseFloat(subjectStudents[i-1].midtermGrade)) { currentRank++; }
             rankMap[subjectStudents[i].name] = currentRank;
         }
         return { sortedList: subjectStudents, rankMap: rankMap };
@@ -337,10 +337,10 @@
 
     // Search ranking calculation (Tie-breakers sorted alphabetically by surname)
     function calculateSearchSubjectRanks(subjectCode) {
-        let subjectStudents = rawGrades.filter(s => s.subject === subjectCode && !isNaN(parseFloat(s.grade)) && getRemarks(s.grade) === "Passed");
+        let subjectStudents = rawGrades.filter(s => s.subject === subjectCode && !isNaN(parseFloat(s.midtermGrade)) && getRemarks(s.midtermGrade) === "Passed");
         
         subjectStudents.sort((a, b) => {
-            let gradeDiff = parseFloat(a.grade) - parseFloat(b.grade);
+            let gradeDiff = parseFloat(a.midtermGrade) - parseFloat(b.midtermGrade);
             if (gradeDiff !== 0) return gradeDiff;
             return a.name.localeCompare(b.name);
         });
@@ -358,7 +358,6 @@
     function renderTopFive(elementId, dataset) {
         const ul = document.getElementById(elementId);
         ul.innerHTML = "";
-        let displayedCount = 0;
         
         for (let i = 0; i < dataset.sortedList.length; i++) {
             let student = dataset.sortedList[i];
@@ -367,7 +366,7 @@
             
             let li = document.createElement("li");
             li.className = "top-item";
-            li.innerHTML = `<span><span class="rank-badge">Rank ${currentRank}</span> ${student.name}</span> <strong>${student.grade}</strong>`;
+            li.innerHTML = `<span><span class="rank-badge">Rank ${currentRank}</span> ${student.name}</span> <strong>${student.midtermGrade}</strong>`;
             ul.appendChild(li);
         }
     }
@@ -390,16 +389,16 @@
                 }
                 
                 let calculatedRank = "N/A";
-                let remark = getRemarks(record.grade);
-                if (!isNaN(parseFloat(record.grade)) && remark === "Passed") {
+                let remark = getRemarks(record.midtermGrade);
+                if (!isNaN(parseFloat(record.midtermGrade)) && remark === "Passed") {
                     if (record.subject === "ES215") calculatedRank = searchEs215RankMap[record.name] || "N/A";
                 }
 
                 profiles[record.name].push({
                     subject: "ES215 Mechanics (Statics)",
-                    prelims: record.prelims,
-                    midterm: record.midterm,
-                    grade: record.grade,
+                    prelimExam: record.prelimExam,
+                    midtermExam: record.midtermExam,
+                    midtermGrade: record.midtermGrade,
                     remarks: remark,
                     rank: calculatedRank
                 });
@@ -424,7 +423,7 @@
 
             let headerRow = document.createElement("div");
             headerRow.className = "subject-row subject-header";
-            headerRow.innerHTML = `<div>Subject</div><div>Prelims</div><div>Midterm</div><div>Grade</div><div>Remarks</div><div>Rank</div>`;
+            headerRow.innerHTML = `<div>Subject</div><div>Prelim Exam</div><div>Midterm Exam</div><div>Midterm Grade</div><div>Remarks</div><div>Rank</div>`;
             card.appendChild(headerRow);
 
             profiles[studentName].forEach(item => {
@@ -437,9 +436,9 @@
 
                 row.innerHTML = `
                     <div>${item.subject}</div>
-                    <div><strong>${item.prelims}</strong></div>
-                    <div><strong>${item.midterm}</strong></div>
-                    <div><strong>${item.grade}</strong></div>
+                    <div><strong>${item.prelimExam}</strong></div>
+                    <div><strong>${item.midtermExam}</strong></div>
+                    <div><strong>${item.midtermGrade}</strong></div>
                     <div class="${remarkClass}">${item.remarks}</div>
                     <div>${item.rank}</div>
                 `;
