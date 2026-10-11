@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - Complete Grade Database</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --fail-color: #ef4444;
+            --drop-color: #64748b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* === NAVIGATION BUTTONS STYLES === */
+        .home-btn, .back-btn {
+            position: absolute;
+            top: 20px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #ffffff;
+            color: var(--primary-color);
+            padding: 10px 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+
+        .back-btn {
+            left: 20px;
+        }
+
+        .home-btn {
+            right: 20px;
+        }
+
+        .home-btn:hover, .back-btn:hover {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(30, 58, 138, 0.2);
+        }
+
+        .home-btn svg, .back-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            color: var(--primary-color);
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-top: 10px;
+        }
+
+        .logo-container img {
+            max-height: 100px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        header h1 {
+            margin-bottom: 5px;
+            font-size: 2.2rem;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            max-width: 600px;
+            padding: 14px 24px;
+            font-size: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        }
+
+        .student-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 6px solid var(--primary-color);
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .student-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+
+        .subject-row {
+            display: grid;
+            grid-template-columns: 1.6fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr;
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--border-color);
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .subject-header {
+            font-weight: bold;
+            background-color: #f1f5f9;
+            border-radius: 6px;
+            border-bottom: none;
+        }
+
+        .remarks-passed { color: var(--success-color); font-weight: bold; }
+        .remarks-failed { color: var(--fail-color); font-weight: bold; }
+        .remarks-drop { color: var(--drop-color); font-weight: bold; }
+
+        .leaderboards {
+            margin-top: 35px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .subject-row { grid-template-columns: 1fr; gap: 8px; padding: 15px 10px; }
+            .subject-header { display: none; }
+        }
+
+        .panel {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            padding: 22px;
+        }
+
+        .panel h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .top-list { list-style: none; padding: 0; margin: 0; }
+        .top-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 5px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .top-item:last-child { border-bottom: none; }
+        .rank-badge {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #64748b;
+            font-style: italic;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Top Left Back Button -->
+<a href="Engr Raymundo's PORTAL.html" class="back-btn">
+    <svg viewBox="0 0 24 24">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+    </svg>
+    Back
+</a>
+
+<!-- Top Right Home Button -->
+<a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>
+    Home
+</a>
+
+<div class="container">
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Program Logo" id="portalLogo">
+        </div>
+        <h1>Engineering Student Portal</h1>
+        <p>Complete Database & Real-Time Academic Leaderboards</p>
+    </header>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search by student's first or last name..." oninput="searchStudent()">
+    </div>
+
+    <div id="results"></div>
+
+    <div class="leaderboards">
+        <div class="panel">
+            <h3>🏆 Top 5 - ES214 Autocad</h3>
+            <ul id="es214Top" class="top-list"></ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    const rawGrades = [
+        // Block 1
+        { name: "ABAD, TWINKLE KHAYE", subject: "ES214", prelimExam: "2.3", midtermExam: "3.4", midtermGrade: "2.8" },
+        { name: "ABADINGO, CHARMEL JANE", subject: "ES214", prelimExam: "1.7", midtermExam: "3.1", midtermGrade: "2.4" },
+        { name: "ACALA", subject: "ES214", prelimExam: "4.75", midtermExam: "3.9", midtermGrade: "42" },
+        { name: "ALA, EMMANUEL RAVEN", subject: "ES214", prelimExam: "2.13", midtermExam: "1.8", midtermGrade: "2.1" },
+        { name: "ANACIO, ANTHONY CAPADA", subject: "ES214", prelimExam: "1.8", midtermExam: "2.1", midtermGrade: "2.1" },
+        { name: "ASTRONOMO, JIAN CARLO", subject: "ES214", prelimExam: "1.0", midtermExam: "1.3", midtermGrade: "1.2" },
+        { name: "AYES, JULIANNE GRACE", subject: "ES214", prelimExam: "2.03", midtermExam: "2.9", midtermGrade: "2.5" },
+        { name: "JAYES, FRANCHESKA", subject: "ES214", prelimExam: "2.4", midtermExam: "4.5", midtermGrade: "3.3" },
+        { name: "BALEÑA, THALIA DENISE", subject: "ES214", prelimExam: "1.2", midtermExam: "4.5", midtermGrade: "3.0" },
+        { name: "BARCIAL, KENARD", subject: "ES214", prelimExam: "1.8", midtermExam: "1.8", midtermGrade: "1.8" },
+        { name: "BASILIA, MA REANITA MAE", subject: "ES214", prelimExam: "1.13", midtermExam: "3.1", midtermGrade: "2.5" },
+        { name: "BORROMEO, NIÑO JUSTINE KIRK", subject: "ES214", prelimExam: "1.8", midtermExam: "2.2", midtermGrade: "1.8" },
+        { name: "CAYACO, BON JUSTINE", subject: "ES214", prelimExam: "4.2", midtermExam: "4.7", midtermGrade: "3.4" },
+        { name: "CHUA, EDWARDINE ELLAISHA", subject: "ES214", prelimExam: "3.7", midtermExam: "2.6", midtermGrade: "3.5" },
+        { name: "CUMLA, SHAQUILLE", subject: "ES214", prelimExam: "1.7", midtermExam: "1.3", midtermGrade: "1.6" },
+        { name: "DE PAZ, JOHN KARLO", subject: "ES214", prelimExam: "1.2", midtermExam: "1.5", midtermGrade: "1.5" },
+        { name: "DUMLAO", subject: "ES214", prelimExam: "4.7", midtermExam: "4.3", midtermGrade: "44" },
+        { name: "ENALES, ANGEL CABARRUBIAS", subject: "ES214", prelimExam: "2.4", midtermExam: "1.9", midtermGrade: "1.9" },
+        { name: "ESPINOSA, RALPH MELVIN", subject: "ES214", prelimExam: "1.3", midtermExam: "3.9", midtermGrade: "2.6" },
+        { name: "GO", subject: "ES214", prelimExam: "101", midtermExam: "5.0", midtermGrade: "2.7" },
+        { name: "HIECKS, JOHN HUBERTUS", subject: "ES214", prelimExam: "1.3", midtermExam: "22", midtermGrade: "1.7" },
+        { name: "LAGRAMADA, JOHN FEL", subject: "ES214", prelimExam: "2.0", midtermExam: "22", midtermGrade: "1.9" },
+        { name: "LOREÑO, DIANA ROSE GAYO", subject: "ES214", prelimExam: "2.4", midtermExam: "1.3", midtermGrade: "1.7" },
+        { name: "MACASPAG, CHARLES JOSHUA", subject: "ES214", prelimExam: "2.4", midtermExam: "3.3", midtermGrade: "2.6" },
+        { name: "MANATAD, EZRYLLE", subject: "ES214", prelimExam: "1.92", midtermExam: "2.8", midtermGrade: "2.1" },
+        { name: "MANGALINDAN, LYKA RIAN", subject: "ES214", prelimExam: "2.23", midtermExam: "3.1", midtermGrade: "2.7" },
+        { name: "MANITO, TRIXCE MHAE", subject: "ES214", prelimExam: "2.4", midtermExam: "3.7", midtermGrade: "2.8" },
+        { name: "MESA, JOEY", subject: "ES214", prelimExam: "1.5", midtermExam: "1.3", midtermGrade: "DRP" },
+        { name: "MONLEON, ROD KAIZER VER", subject: "ES214", prelimExam: "2", midtermExam: "1.9", midtermGrade: "1.8" },
+        { name: "MORABE, FRANCINE AIRHEKA", subject: "ES214", prelimExam: "2.6", midtermExam: "3.1", midtermGrade: "2.7" },
+        { name: "MORENO, STEVE ANDRES", subject: "ES214", prelimExam: "1.3", midtermExam: "2.6", midtermGrade: "20" },
+        { name: "NARBONITA, ALTHEA FAYE", subject: "ES214", prelimExam: "1.8", midtermExam: "3:4", midtermGrade: "2.6" },
+        { name: "NEDRUDA, ROSE GEM", subject: "ES214", prelimExam: "2.83", midtermExam: "4.2", midtermGrade: "3.2" },
+        { name: "NUEVAS, AJAY", subject: "ES214", prelimExam: "2.2", midtermExam: "3.4", midtermGrade: "2.4" },
+        { name: "OCENAR, JHASPER", subject: "ES214", prelimExam: "2.5", midtermExam: "4.5", midtermGrade: "3.1" },
+        { name: "PADUAL, LAMIA MARGARETTE", subject: "ES214", prelimExam: "1.8", midtermExam: "2.9", midtermGrade: "2.2" },
+        { name: "PAJARES, REGINE", subject: "ES214", prelimExam: "3.0", midtermExam: "2.6", midtermGrade: "2.5" },
+        { name: "PARROCHO, LOUIENA", subject: "ES214", prelimExam: "1.8", midtermExam: "3.1", midtermGrade: "2.3" },
+        { name: "REATAZA, WILL KENNVIC", subject: "ES214", prelimExam: "1.8", midtermExam: "2.1", midtermGrade: "2.1" },
+        { name: "ROCHA", subject: "ES214", prelimExam: "19/3", midtermExam: "5.0", midtermGrade: "3.4" },
+        { name: "SALIMBANGON, JENNELOU", subject: "ES214", prelimExam: "4.3", midtermExam: "3.9", midtermGrade: "3.1" },
+        { name: "TABULOC, JHON REY", subject: "ES214", prelimExam: "1.5", midtermExam: "4.5", midtermGrade: "3.1" },
+        { name: "TENORIO, ANGEL", subject: "ES214", prelimExam: "1.9", midtermExam: "3.0", midtermGrade: "2.4" },
+        { name: "TUMBAGA, ALMHERA KRIS", subject: "ES214", prelimExam: "2.5", midtermExam: "2.7", midtermGrade: "2.3" },
+        { name: "TUNGGOLH, ELMER REGIS", subject: "ES214", prelimExam: "1.51", midtermExam: "1.8", midtermGrade: "1.4" },
+        { name: "VALLEJO, AIA CHRISTIAN", subject: "ES214", prelimExam: "3.05", midtermExam: "2.6", midtermGrade: "3.2" },
+        { name: "YU, CZARINAH RAIZEL", subject: "ES214", prelimExam: "1.83", midtermExam: "3.3", midtermGrade: "2.7" },
+        { name: "RAPATAN", subject: "ES214", prelimExam: "5.0", midtermExam: "3.7", midtermGrade: "3.4" },
+
+        // Block 2
+        { name: "ALEGA, DAREIN", subject: "ES214", prelimExam: "1.9", midtermExam: "2.9", midtermGrade: "2.5" },
+        { name: "APOYA, JOREN KYCER", subject: "ES214", prelimExam: "3", midtermExam: "2.4", midtermGrade: "2.6" },
+        { name: "ARGUELLES, JOVELYN", subject: "ES214", prelimExam: "3", midtermExam: "4.7", midtermGrade: "3.4" },
+        { name: "ARIASO, DELBERT JOHN", subject: "ES214", prelimExam: "3", midtermExam: "3.7", midtermGrade: "3.0" },
+        { name: "ASIS, PRINCESS MAR AN", subject: "ES214", prelimExam: "2.1", midtermExam: "5.0", midtermGrade: "3.4" },
+        { name: "BALLETA, JOHN LEO", subject: "ES214", prelimExam: "-", midtermExam: "-", midtermGrade: "DRP" },
+        { name: "BERBASA, MARTIN", subject: "ES214", prelimExam: "2.5", midtermExam: "3.1", midtermGrade: "2.6" },
+        { name: "BETUIN, IRA JANE", subject: "ES214", prelimExam: "13", midtermExam: "2.7", midtermGrade: "2.7" },
+        { name: "BORJA, DIVINE RHAY ANN", subject: "ES214", prelimExam: "3", midtermExam: "3.3", midtermGrade: "3.2" },
+        { name: "CABIDOG, JOHN VINCENT", subject: "ES214", prelimExam: "3", midtermExam: "5.0", midtermGrade: "3.6" },
+        { name: "CABUEÑAS, JAMAICA", subject: "ES214", prelimExam: "3", midtermExam: "3.6", midtermGrade: "2.8" },
+        { name: "CALAMAYA, CLARENCE JACOB", subject: "ES214", prelimExam: "1.6", midtermExam: "1.6", midtermGrade: "1.6" },
+        { name: "CAMOLO, MAR JONEL", subject: "ES214", prelimExam: "2.5", midtermExam: "2.6", midtermGrade: "2.3" },
+        { name: "CAPONES, MARCO JOHN", subject: "ES214", prelimExam: "2.4", midtermExam: "3.3", midtermGrade: "2.8" },
+        { name: "CESISTA, REYNALDO", subject: "ES214", prelimExam: "-", midtermExam: "-", midtermGrade: "DRP" },
+        { name: "CORETANA", subject: "ES214", prelimExam: "2.5", midtermExam: "5.0", midtermGrade: "3.3" },
+        { name: "DAUZ, WENLIE", subject: "ES214", prelimExam: "3", midtermExam: "2.6", midtermGrade: "2.7" },
+        { name: "DE PAZ, MARK ANTHONY", subject: "ES214", prelimExam: "1.9", midtermExam: "3.0", midtermGrade: "2.3" },
+        { name: "DELA CRUZ, JANICE MAE", subject: "ES214", prelimExam: "2.2", midtermExam: "5.0", midtermGrade: "3.3" },
+        { name: "DERIO, JAN MELRICH", subject: "ES214", prelimExam: "3", midtermExam: "2.3", midtermGrade: "2.7" },
+        { name: "EFREN, JUNIEL JEADEN", subject: "ES214", prelimExam: "-", midtermExam: "-", midtermGrade: "DRP" },
+        { name: "GADIN, JIMLYN ROSE", subject: "ES214", prelimExam: "2.1", midtermExam: "2.2", midtermGrade: "2.3" },
+        { name: "GALANGUE, ROSE MARIE", subject: "ES214", prelimExam: "3", midtermExam: "2.6", midtermGrade: "2.6" },
+        { name: "GOLEZ, ARON NICK", subject: "ES214", prelimExam: "1.8", midtermExam: "2.1", midtermGrade: "2.1" },
+        { name: "JAVINES, KYLE", subject: "ES214", prelimExam: "5", midtermExam: "5.0", midtermGrade: "4.1" },
+        { name: "JAYME, JUDE KARREL", subject: "ES214", prelimExam: "3", midtermExam: "5.0", midtermGrade: "3.6" },
+        { name: "JECINO, NING", subject: "ES214", prelimExam: "2", midtermExam: "3.0", midtermGrade: "2.5" },
+        { name: "LABORDO, BELLE", subject: "ES214", prelimExam: "3", midtermExam: "3.3", midtermGrade: "2.8" },
+        { name: "LAVENTE, JOHN PAUL", subject: "ES214", prelimExam: "2.8", midtermExam: "5.0", midtermGrade: "DRP" },
+        { name: "LUMBRE, RHAMCIES", subject: "ES214", prelimExam: "3", midtermExam: "2.7", midtermGrade: "3.3" },
+        { name: "MALASAGA", subject: "ES214", prelimExam: "3", midtermExam: "3.0", midtermGrade: "2.7" },
+        { name: "GALVEZ", subject: "ES214", prelimExam: "3", midtermExam: "3.6", midtermGrade: "DRP" },
+        { name: "LIMBOY", subject: "ES214", prelimExam: "3", midtermExam: "2.9", midtermGrade: "3.0" },
+        { name: "LOPEZ", subject: "ES214", prelimExam: "-", midtermExam: "-", midtermGrade: "3.2" },
+        { name: "MABUTOL", subject: "ES214", prelimExam: "-", midtermExam: "-", midtermGrade: "2.6" },
+        { name: "MATOL, C JAY", subject: "ES214", prelimExam: "5", midtermExam: "5.0", midtermGrade: "4.2" },
+        { name: "MORANTE, EDUARDO, JR.", subject: "ES214", prelimExam: "1.9", midtermExam: "3.0", midtermGrade: "2.2" },
+        { name: "NAVARRETE, DARIELLE FAYE", subject: "ES214", prelimExam: "1.6", midtermExam: "5.0", midtermGrade: "3.6" },
+        { name: "NIKAZY", subject: "ES214", prelimExam: "-", midtermExam: "-", midtermGrade: "DRP" },
+        { name: "NIVERA, COLINE", subject: "ES214", prelimExam: "3", midtermExam: "2.9", midtermGrade: "2.7" },
+        { name: "OBIDOS, PRINCESS HANNA", subject: "ES214", prelimExam: "2", midtermExam: "2.7", midtermGrade: "2.5" },
+        { name: "PACIOS", subject: "ES214", prelimExam: "3", midtermExam: "2.6", midtermGrade: "2.5" },
+        { name: "ΡΑΝΟΥ, VAUGHN RHOAN", subject: "ES214", prelimExam: "2", midtermExam: "3.0", midtermGrade: "2.4" },
+        { name: "PECORE, JOHN PAUL", subject: "ES214", prelimExam: "3", midtermExam: "3.7", midtermGrade: "3.4" },
+        { name: "PERIDO, YVES TRISTAN", subject: "ES214", prelimExam: "2", midtermExam: "3.9", midtermGrade: "3.1" },
+        { name: "SAPLAD, DOLPH", subject: "ES214", prelimExam: "3", midtermExam: "2.1", midtermGrade: "2.5" },
+        { name: "SEVILLA", subject: "ES214", prelimExam: "2.8", midtermExam: "5.0", midtermGrade: "3.6" },
+        { name: "TAPE, MICHAEL", subject: "ES214", prelimExam: "2.1", midtermExam: "2.4", midtermGrade: "2.1" },
+        { name: "VILLAFLOR", subject: "ES214", prelimExam: "-", midtermExam: "-", midtermGrade: "DRP" },
+        { name: "VILLALINO, JOHN KEVIN SARIN", subject: "ES214", prelimExam: "3", midtermExam: "5.0", midtermGrade: "3.7" },
+        { name: "YU, MARTY", subject: "ES214", prelimExam: "2", midtermExam: "2.6", midtermGrade: "2.1" },
+        { name: "ZATA, CRYSTAL", subject: "ES214", prelimExam: "2.2", midtermExam: "5.0", midtermGrade: "3.5" },
+        { name: "ZOILO, CHRISHANIE", subject: "ES214", prelimExam: "2", midtermExam: "3.3", midtermGrade: "2.5" },
+        { name: "GABON", subject: "ES214", prelimExam: "2.2", midtermExam: "4.7", midtermGrade: "3.4" },
+        { name: "ODAL", subject: "ES214", prelimExam: "3", midtermExam: "4.5", midtermGrade: "3.3" },
+        { name: "DONASCO", subject: "ES214", prelimExam: "3", midtermExam: "4.7", midtermGrade: "3.3" }
+    ];
+
+    function getRemarks(gradeVal) {
+        if (!gradeVal || gradeVal.toUpperCase() === "DRP") return "Drop";
+        let num = parseFloat(gradeVal);
+        if (isNaN(num)) return "N/A";
+        if (num >= 1.0 && num <= 2.9) return "Passed";
+        if (num >= 3.0 && num <= 5.0) return "Failed";
+        return "N/A";
+    }
+
+    // Leaderboard calculation (Dense ranking for ties)
+    function calculateDenseSubjectRanks(subjectCode) {
+        let subjectStudents = rawGrades.filter(s => s.subject === subjectCode && !isNaN(parseFloat(s.midtermGrade)) && getRemarks(s.midtermGrade) === "Passed");
+        subjectStudents.sort((a, b) => parseFloat(a.midtermGrade) - parseFloat(b.midtermGrade));
+        let rankMap = {};
+        let currentRank = 1;
+        for (let i = 0; i < subjectStudents.length; i++) {
+            if (i > 0 && parseFloat(subjectStudents[i].midtermGrade) > parseFloat(subjectStudents[i-1].midtermGrade)) { currentRank++; }
+            rankMap[subjectStudents[i].name] = currentRank;
+        }
+        return { sortedList: subjectStudents, rankMap: rankMap };
+    }
+
+    // Search ranking calculation (Tie-breakers sorted alphabetically by surname)
+    function calculateSearchSubjectRanks(subjectCode) {
+        let subjectStudents = rawGrades.filter(s => s.subject === subjectCode && !isNaN(parseFloat(s.midtermGrade)) && getRemarks(s.midtermGrade) === "Passed");
+        
+        subjectStudents.sort((a, b) => {
+            let gradeDiff = parseFloat(a.midtermGrade) - parseFloat(b.midtermGrade);
+            if (gradeDiff !== 0) return gradeDiff;
+            return a.name.localeCompare(b.name);
+        });
+
+        let rankMap = {};
+        for (let i = 0; i < subjectStudents.length; i++) {
+            rankMap[subjectStudents[i].name] = i + 1;
+        }
+        return rankMap;
+    }
+
+    const denseEs214 = calculateDenseSubjectRanks("ES214");
+    const searchEs214RankMap = calculateSearchSubjectRanks("ES214");
+
+    function renderTopFive(elementId, dataset) {
+        const ul = document.getElementById(elementId);
+        ul.innerHTML = "";
+        
+        for (let i = 0; i < dataset.sortedList.length; i++) {
+            let student = dataset.sortedList[i];
+            let currentRank = dataset.rankMap[student.name];
+            if (currentRank > 5) break;
+            
+            let li = document.createElement("li");
+            li.className = "top-item";
+            li.innerHTML = `<span><span class="rank-badge">Rank ${currentRank}</span> ${student.name}</span> <strong>${student.midtermGrade}</strong>`;
+            ul.appendChild(li);
+        }
+    }
+
+    renderTopFive("es214Top", denseEs214);
+
+    function searchStudent() {
+        const query = document.getElementById("searchInput").value.trim().toLowerCase();
+        const resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML = "";
+
+        if (query === "") return;
+
+        let profiles = {};
+
+        rawGrades.forEach(record => {
+            if (record.name.toLowerCase().includes(query)) {
+                if (!profiles[record.name]) {
+                    profiles[record.name] = [];
+                }
+                
+                let calculatedRank = "N/A";
+                let remark = getRemarks(record.midtermGrade);
+                if (!isNaN(parseFloat(record.midtermGrade)) && remark === "Passed") {
+                    if (record.subject === "ES214") calculatedRank = searchEs214RankMap[record.name] || "N/A";
+                }
+
+                profiles[record.name].push({
+                    subject: "ES214 Autocad",
+                    prelimExam: record.prelimExam,
+                    midtermExam: record.midtermExam,
+                    midtermGrade: record.midtermGrade,
+                    remarks: remark,
+                    rank: calculatedRank
+                });
+            }
+        });
+
+        const matchedNames = Object.keys(profiles);
+
+        if (matchedNames.length === 0) {
+            resultsDiv.innerHTML = '<div class="no-results">No matches found. Check your search spelling.</div>';
+            return;
+        }
+
+        matchedNames.forEach(studentName => {
+            let card = document.createElement("div");
+            card.className = "student-card";
+
+            let nameHeader = document.createElement("div");
+            nameHeader.className = "student-name";
+            nameHeader.textContent = studentName;
+            card.appendChild(nameHeader);
+
+            let headerRow = document.createElement("div");
+            headerRow.className = "subject-row subject-header";
+            headerRow.innerHTML = `<div>Subject</div><div>Prelim Exam</div><div>Midterm Exam</div><div>Midterm Grade</div><div>Remarks</div><div>Rank</div>`;
+            card.appendChild(headerRow);
+
+            profiles[studentName].forEach(item => {
+                let row = document.createElement("div");
+                row.className = "subject-row";
+
+                let remarkClass = "remarks-passed";
+                if (item.remarks === 'Failed') remarkClass = "remarks-failed";
+                if (item.remarks === 'Drop') remarkClass = "remarks-drop";
+
+                row.innerHTML = `
+                    <div>${item.subject}</div>
+                    <div><strong>${item.prelimExam}</strong></div>
+                    <div><strong>${item.midtermExam}</strong></div>
+                    <div><strong>${item.midtermGrade}</strong></div>
+                    <div class="${remarkClass}">${item.remarks}</div>
+                    <div>${item.rank}</div>
+                `;
+                card.appendChild(row);
+            });
+
+            resultsDiv.appendChild(card);
+        });
+    }
+</script>
+</body>
+</html>
