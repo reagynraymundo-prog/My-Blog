@@ -277,9 +277,11 @@
             const subjectSelect = document.getElementById("subject");
             const lookupBtn = document.getElementById("lookupBtn");
 
+            // Enable semester selection and reset its value
             semSelect.value = "";
             semSelect.disabled = false;
             
+            // Reset and disable subjects until a semester is actually chosen
             subjectSelect.innerHTML = '<option value="" disabled selected>-- Select Semester first --</option>';
             subjectSelect.disabled = true;
             
