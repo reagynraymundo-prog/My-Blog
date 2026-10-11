@@ -265,4 +265,86 @@
                     { name: "Engineering Economics ES 216", file: "econ Sem 1 25-26.html" },
                     { name: "Engineering Utilities AC 221", file: "AC 221 sem 1 25-26.html" }
                 ],
-                "2nd
+                "2nd": [
+                    { name: "Strength of Materials ES 228", file: "ES 228 CY 2025-2026 SEM 2.html" },
+                    { name: "Highway Engineering CE 304", file: "CE 304 CY 2025-2026 SEM 2.html" }
+                ]
+            },
+            "2026-2027": {
+                "1st": [
+                    { name: "Engineering Utilities AC 221", file: "AC 221 sem 1 26-27.html" },
+                    { name: "Autocad ES 214", file: "ES 214 sem 1 26-27.html" },
+                    { name: "Mechanics (Statics) ES 215", file: "ES 215 sem 1 26-27.html" }
+                ],
+                "2nd": [
+                    { name: "Drawing", file: "AC 224 sem 1 26-27.html" },
+                    { name: "Strength of Materials ES 221", file: "ES 228 CY 2026-2027 SEM 2.html" }
+                ]
+            }
+        };
+
+        function updateSemesters() {
+            const semSelect = document.getElementById("semester");
+            const subjectSelect = document.getElementById("subject");
+            const lookupBtn = document.getElementById("lookupBtn");
+
+            semSelect.value = "";
+            semSelect.disabled = false;
+            
+            subjectSelect.innerHTML = '<option value="" disabled selected>-- Select Semester first --</option>';
+            subjectSelect.disabled = true;
+            
+            lookupBtn.disabled = true;
+            document.getElementById("errorMsg").style.display = "none";
+        }
+
+        function updateSubjects() {
+            const yearSelect = document.getElementById("schoolYear").value;
+            const semSelect = document.getElementById("semester").value;
+            const subjectSelect = document.getElementById("subject");
+            const lookupBtn = document.getElementById("lookupBtn");
+
+            subjectSelect.innerHTML = '<option value="" disabled selected>-- Select Subject --</option>';
+            
+            if (yearSelect && semSelect && subjectData[yearSelect] && subjectData[yearSelect][semSelect]) {
+                const subjects = subjectData[yearSelect][semSelect];
+                subjects.forEach(sub => {
+                    const option = document.createElement("option");
+                    option.value = sub.file;
+                    option.textContent = sub.name;
+                    subjectSelect.appendChild(option);
+                });
+                subjectSelect.disabled = false;
+            } else {
+                subjectSelect.disabled = true;
+            }
+
+            lookupBtn.disabled = true;
+        }
+
+        function validateSelection() {
+            const subjectSelect = document.getElementById("subject").value;
+            const lookupBtn = document.getElementById("lookupBtn");
+            const errorMsg = document.getElementById("errorMsg");
+
+            if (subjectSelect) {
+                lookupBtn.disabled = false;
+                errorMsg.style.display = "none";
+            } else {
+                lookupBtn.disabled = true;
+            }
+        }
+
+        function redirectToGradePage() {
+            const subjectSelect = document.getElementById("subject");
+            const targetFile = subjectSelect.value;
+
+            if (targetFile) {
+                window.location.href = targetFile;
+            } else {
+                document.getElementById("errorMsg").style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
