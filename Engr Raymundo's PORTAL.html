@@ -8,7 +8,7 @@
         :root {
             --primary: #2563eb;
             --primary-hover: #1d4ed8;
-            --card-bg: rgba(255, 255, 255, 0.95); /* Slight card transparency */
+            --card-bg: rgba(255, 255, 255, 0.95);
             --text-main: #1e293b;
             --text-muted: #64748b;
             --border-color: #cbd5e1;
@@ -17,13 +17,11 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* === BACKGROUND PICTURE SETTINGS === */
-            background-image: url('adfc bg.jpg'); /* Change to your background image file */
+            background-image: url('adfc bg.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            
             color: var(--text-main);
             margin: 0;
             padding: 0;
@@ -34,16 +32,14 @@
             position: relative;
         }
 
-        /* === BACKGROUND TRANSPARENCY / OVERLAY === */
         body::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0, 0, 0, 0.45); /* Adjust the '0.45' value (0 to 1) to make the background darker or lighter */
+            background-color: rgba(0, 0, 0, 0.45);
             z-index: 0;
         }
 
-        /* === HOME BUTTON STYLES === */
         .home-btn {
             position: absolute;
             top: 24px;
@@ -83,7 +79,7 @@
             max-width: 480px;
             padding: 24px;
             position: relative;
-            z-index: 1; /* Ensures content sits above the background overlay */
+            z-index: 1;
         }
 
         .card {
@@ -92,10 +88,9 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             padding: 32px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(8px); /* Adds a sleek frosted glass effect */
+            backdrop-filter: blur(8px);
         }
 
-        /* === LOGO STYLES === */
         .logo-container {
             display: flex;
             justify-content: center;
@@ -206,7 +201,6 @@
 </head>
 <body>
 
-    <!-- Top Right Home Button -->
     <a href="index.html" class="home-btn">
         <svg viewBox="0 0 24 24">
             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
@@ -216,7 +210,6 @@
 
     <div class="container">
         <div class="card">
-            <!-- Logo Section -->
             <div class="logo-container">
                 <img src="logo.png" alt="Portal Logo" id="portalLogo">
             </div>
@@ -224,7 +217,6 @@
             <h2>Grade Lookup Portal</h2>
             <div class="subtitle">Select your academic term and subject</div>
 
-            <!-- 1. School Year Selection -->
             <div class="form-group">
                 <label for="schoolYear">School Year</label>
                 <select id="schoolYear" onchange="updateSemesters()">
@@ -234,7 +226,6 @@
                 </select>
             </div>
 
-            <!-- 2. Semester Selection -->
             <div class="form-group">
                 <label for="semester">Semester</label>
                 <select id="semester" onchange="updateSubjects()" disabled>
@@ -244,7 +235,6 @@
                 </select>
             </div>
 
-            <!-- 3. Subject Selection -->
             <div class="form-group">
                 <label for="subject">Subject / Course</label>
                 <select id="subject" onchange="validateSelection()" disabled>
@@ -253,7 +243,6 @@
                 <div id="errorMsg" class="error-message">Please make a complete selection.</div>
             </div>
 
-            <!-- Submit Button -->
             <button id="lookupBtn" class="btn" onclick="redirectToGradePage()" disabled>Look Up Grades</button>
         </div>
     </div>
