@@ -43,6 +43,41 @@
             z-index: 0;
         }
 
+        /* === HOME BUTTON STYLES === */
+        .home-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--text-main);
+            padding: 10px 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(6px);
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .home-btn:hover {
+            background-color: #ffffff;
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .home-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
         .container {
             width: 100%;
             max-width: 480px;
@@ -171,6 +206,14 @@
 </head>
 <body>
 
+    <!-- Top Right Home Button -->
+    <a href="index.html" class="home-btn">
+        <svg viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+        Home
+    </a>
+
     <div class="container">
         <div class="card">
             <!-- Logo Section -->
@@ -222,86 +265,4 @@
                     { name: "Engineering Economics ES 216", file: "econ Sem 1 25-26.html" },
                     { name: "Engineering Utilities AC 221", file: "AC 221 sem 1 25-26.html" }
                 ],
-                "2nd": [
-                    { name: "Strength of Materials ES 228", file: "ES 228 CY 2025-2026 SEM 2.html" },
-                    { name: "Highway Engineering CE 304", file: "CE 304 CY 2025-2026 SEM 2.html" }
-                ]
-            },
-            "2026-2027": {
-                "1st": [
-                    { name: "Engineering Utilities AC 221", file: "AC 221 sem 1 26-27.html" },
-                    { name: "Autocad ES 214", file: "ES 214 sem 1 26-27.html" },
-                    { name: "Mechanics (Statics) ES 215", file: "ES 215 sem 1 26-27.html" }
-                ],
-                "2nd": [
-                    { name: "Drawing", file: "AC 224 sem 1 26-27.html" },
-                    { name: "Strength of Materials ES 221", file: "ES 228 CY 2026-2027 SEM 2.html" }
-                ]
-            }
-        };
-
-        function updateSemesters() {
-            const semSelect = document.getElementById("semester");
-            const subjectSelect = document.getElementById("subject");
-            const lookupBtn = document.getElementById("lookupBtn");
-
-            semSelect.value = "";
-            semSelect.disabled = false;
-            
-            subjectSelect.innerHTML = '<option value="" disabled selected>-- Select Semester first --</option>';
-            subjectSelect.disabled = true;
-            
-            lookupBtn.disabled = true;
-            document.getElementById("errorMsg").style.display = "none";
-        }
-
-        function updateSubjects() {
-            const yearSelect = document.getElementById("schoolYear").value;
-            const semSelect = document.getElementById("semester").value;
-            const subjectSelect = document.getElementById("subject");
-            const lookupBtn = document.getElementById("lookupBtn");
-
-            subjectSelect.innerHTML = '<option value="" disabled selected>-- Select Subject --</option>';
-            
-            if (yearSelect && semSelect && subjectData[yearSelect] && subjectData[yearSelect][semSelect]) {
-                const subjects = subjectData[yearSelect][semSelect];
-                subjects.forEach(sub => {
-                    const option = document.createElement("option");
-                    option.value = sub.file;
-                    option.textContent = sub.name;
-                    subjectSelect.appendChild(option);
-                });
-                subjectSelect.disabled = false;
-            } else {
-                subjectSelect.disabled = true;
-            }
-
-            lookupBtn.disabled = true;
-        }
-
-        function validateSelection() {
-            const subjectSelect = document.getElementById("subject").value;
-            const lookupBtn = document.getElementById("lookupBtn");
-            const errorMsg = document.getElementById("errorMsg");
-
-            if (subjectSelect) {
-                lookupBtn.disabled = false;
-                errorMsg.style.display = "none";
-            } else {
-                lookupBtn.disabled = true;
-            }
-        }
-
-        function redirectToGradePage() {
-            const subjectSelect = document.getElementById("subject");
-            const targetFile = subjectSelect.value;
-
-            if (targetFile) {
-                window.location.href = targetFile;
-            } else {
-                document.getElementById("errorMsg").style.display = "block";
-            }
-        }
-    </script>
-</body>
-</html>
+                "2nd
