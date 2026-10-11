@@ -264,7 +264,6 @@
 </div>
 
 <script>
-    // Master data compiled from ES 215 class records
     const rawGrades = [
         { name: "ACEDILLO, EUZHAVEL", subject: "ES215", prelims: "3.3", midterm: "4.2", grade: "3.9" },
         { name: "AGUIRRE, MARK", subject: "ES215", prelims: "3.7", midterm: "5.0", grade: "3.9" },
@@ -315,7 +314,6 @@
         { name: "VIOLANTE, CARL ERIK", subject: "ES215", prelims: "3.3", midterm: "2.9", grade: "2.9" }
     ];
 
-    // Helper to determine remarks based on 1.0-2.9 Passed, 3.0-5.0 Failed
     function getRemarks(gradeVal) {
         let num = parseFloat(gradeVal);
         if (isNaN(num)) return "N/A";
@@ -324,7 +322,7 @@
         return "N/A";
     }
 
-    // Core Rank Data Builders
+    // Leaderboard calculation (Dense ranking for ties)
     function calculateDenseSubjectRanks(subjectCode) {
         let subjectStudents = rawGrades.filter(s => s.subject === subjectCode && !isNaN(parseFloat(s.grade)) && getRemarks(s.grade) === "Passed");
         subjectStudents.sort((a, b) => parseFloat(a.grade) - parseFloat(b.grade));
@@ -337,6 +335,7 @@
         return { sortedList: subjectStudents, rankMap: rankMap };
     }
 
+    // Search ranking calculation (Tie-breakers sorted alphabetically by surname)
     function calculateSearchSubjectRanks(subjectCode) {
         let subjectStudents = rawGrades.filter(s => s.subject === subjectCode && !isNaN(parseFloat(s.grade)) && getRemarks(s.grade) === "Passed");
         
@@ -359,10 +358,13 @@
     function renderTopFive(elementId, dataset) {
         const ul = document.getElementById(elementId);
         ul.innerHTML = "";
+        let displayedCount = 0;
+        
         for (let i = 0; i < dataset.sortedList.length; i++) {
             let student = dataset.sortedList[i];
             let currentRank = dataset.rankMap[student.name];
             if (currentRank > 5) break;
+            
             let li = document.createElement("li");
             li.className = "top-item";
             li.innerHTML = `<span><span class="rank-badge">Rank ${currentRank}</span> ${student.name}</span> <strong>${student.grade}</strong>`;
