@@ -23,6 +23,41 @@
             color: var(--text-color);
             margin: 0;
             padding: 20px;
+            position: relative;
+        }
+
+        /* === HOME BUTTON STYLES === */
+        .home-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #ffffff;
+            color: var(--primary-color);
+            padding: 10px 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .home-btn:hover {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(30, 58, 138, 0.2);
+        }
+
+        .home-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
         }
 
         .container {
@@ -179,6 +214,14 @@
     </style>
 </head>
 <body>
+
+<!-- Top Right Home Button -->
+<a href="Engr Raymundo's PORTAL.html" class="home-btn">
+    <svg viewBox="0 0 24 24">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>
+    Home
+</a>
 
 <div class="container">
     <header>
