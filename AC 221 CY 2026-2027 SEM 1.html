@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - Complete Grade Database</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --fail-color: #ef4444;
+            --drop-color: #64748b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* === NAVIGATION BUTTONS STYLES === */
+        .home-btn, .back-btn {
+            position: absolute;
+            top: 20px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #ffffff;
+            color: var(--primary-color);
+            padding: 10px 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+
+        .back-btn {
+            left: 20px;
+        }
+
+        .home-btn {
+            right: 20px;
+        }
+
+        .home-btn:hover, .back-btn:hover {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(30, 58, 138, 0.2);
+        }
+
+        .home-btn svg, .back-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            color: var(--primary-color);
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-top: 10px;
+        }
+
+        .logo-container img {
+            max-height: 100px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        header h1 {
+            margin-bottom: 5px;
+            font-size: 2.2rem;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            max-width: 600px;
+            padding: 14px 24px;
+            font-size: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        }
+
+        .student-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 6px solid var(--primary-color);
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .student-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+
+        .subject-row {
+            display: grid;
+            grid-template-columns: 1.6fr 0.8fr 0.8fr 0.8fr 1fr 0.8fr;
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--border-color);
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .subject-header {
+            font-weight: bold;
+            background-color: #f1f5f9;
+            border-radius: 6px;
+            border-bottom: none;
+        }
+
+        .remarks-passed { color: var(--success-color); font-weight: bold; }
+        .remarks-failed { color: var(--fail-color); font-weight: bold; }
+        .remarks-drop { color: var(--drop-color); font-weight: bold; }
+
+        .leaderboards {
+            margin-top: 35px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .subject-row { grid-template-columns: 1fr; gap: 8px; padding: 15px 10px; }
+            .subject-header { display: none; }
+        }
+
+        .panel {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            padding: 22px;
+        }
+
+        .panel h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .top-list { list-style: none; padding: 0; margin: 0; }
+        .top-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 5px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .top-item:last-child { border-bottom: none; }
+        .rank-badge {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #64748b;
+            font-style: italic;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Top Left Back Button -->
+<a href="Engr Raymundo's PORTAL.html" class="back-btn">
+    <svg viewBox="0 0 24 24">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+    </svg>
+    Back
+</a>
+
+<!-- Top Right Home Button -->
+<a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>
+    Home
+</a>
+
+<div class="container">
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Program Logo" id="portalLogo">
+        </div>
+        <h1>Engineering Student Portal</h1>
+        <p>Complete Database & Real-Time Academic Leaderboards</p>
+    </header>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search by student's first or last name..." oninput="searchStudent()">
+    </div>
+
+    <div id="results"></div>
+
+    <div class="leaderboards">
+        <div class="panel">
+            <h3>🏆 Top 5 - AC 221</h3>
+            <ul id="ac221Top" class="top-list"></ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    const rawGrades = [
+        // Block 1 (from BLK 1 PDF)
+        { name: "ALEGA, DAREIN", subject: "AC221", prelimExam: "1.9", midtermExam: "1.8", midtermGrade: "1.8" },
+        { name: "APOYA, JOREN KYCER", subject: "AC221", prelimExam: "2", midtermExam: "-", midtermGrade: "-" },
+        { name: "ARGUELLES, JOVELYN", subject: "AC221", prelimExam: "2.5", midtermExam: "-", midtermGrade: "-" },
+        { name: "ARIASO, DELBERT JOHN", subject: "AC221", prelimExam: "4", midtermExam: "-", midtermGrade: "-" },
+        { name: "ASIS, PRINCESS MAR ANGEL", subject: "AC221", prelimExam: "1.8", midtermExam: "-", midtermGrade: "-" },
+        { name: "BALLETA, JOHN LEO", subject: "AC221", prelimExam: "5", midtermExam: "-", midtermGrade: "-" },
+        { name: "BERBASA, MARTIN", subject: "AC221", prelimExam: "2.5", midtermExam: "-", midtermGrade: "-" },
+        { name: "BETUIN, IRA JANE", subject: "AC221", prelimExam: "2.1", midtermExam: "-", midtermGrade: "-" },
+        { name: "BONA, CHRISIEL JANE", subject: "AC221", prelimExam: "2.1", midtermExam: "2.1", midtermGrade: "1.9" },
+        { name: "CABIDOG, JOHN VINCENT", subject: "AC221", prelimExam: "3", midtermExam: "2.0", midtermGrade: "24" },
+        { name: "CABUEÑAS, JAMAICA", subject: "AC221", prelimExam: "1.8", midtermExam: "22", midtermGrade: "1.8" },
+        { name: "CALAMAYA, CLARENCE JACOB", subject: "AC221", prelimExam: "21", midtermExam: "-", midtermGrade: "-" },
+        { name: "CAMOLO, MAR JONEL", subject: "AC221", prelimExam: "19", midtermExam: "-", midtermGrade: "-" },
+        { name: "CAPONES, MARCO JOHN", subject: "AC221", prelimExam: "1.8", midtermExam: "-", midtermGrade: "-" },
+        { name: "CASE, JONNA MAE", subject: "AC221", prelimExam: "2.0", midtermExam: "1.9", midtermGrade: "1.8" },
+        { name: "DAUZ, WENLIE", subject: "AC221", prelimExam: "2.9", midtermExam: "-", midtermGrade: "-" },
+        { name: "DE PAZ, MARK ANTHONY", subject: "AC221", prelimExam: "1.9", midtermExam: "-", midtermGrade: "-" },
+        { name: "DELA CRUZ, JANICE MAE", subject: "AC221", prelimExam: "2", midtermExam: "-", midtermGrade: "-" },
+        { name: "DERIO, JAN MELRICH", subject: "AC221", prelimExam: "4", midtermExam: "-", midtermGrade: "-" },
+        { name: "DOLLETE, STACY BLEIS", subject: "AC221", prelimExam: "4", midtermExam: "-", midtermGrade: "-" },
+        { name: "DUERO, JEFF", subject: "AC221", prelimExam: "29", midtermExam: "-", midtermGrade: "-" },
+        { name: "GADIN, JIMLYN ROSE", subject: "AC221", prelimExam: "2.6", midtermExam: "-", midtermGrade: "-" },
+        { name: "GALANGUE, ROSE MARIE", subject: "AC221", prelimExam: "4", midtermExam: "-", midtermGrade: "-" },
+        { name: "JAVINES, ARON NICK", subject: "AC221", prelimExam: "27", midtermExam: "17", midtermGrade: "21" },
+        { name: "JAYME, KYLE", subject: "AC221", prelimExam: "2.9", midtermExam: "2.0", midtermGrade: "22" },
+        { name: "JECINO, JUDE KARREL", subject: "AC221", prelimExam: "2.9", midtermExam: "1.6", midtermGrade: "2.1" },
+        { name: "LIMBOY, JOHN GABRIEL", subject: "AC221", prelimExam: "2", midtermExam: "-", midtermGrade: "-" },
+        { name: "LONZAGA, MERCY", subject: "AC221", prelimExam: "5", midtermExam: "-", midtermGrade: "-" },
+        { name: "LUMBRE, BELLE", subject: "AC221", prelimExam: "5", midtermExam: "-", midtermGrade: "-" },
+        { name: "LUMBRE, MHIAN", subject: "AC221", prelimExam: "1.8", midtermExam: "2.1", midtermGrade: "1.8" },
+        { name: "MABUTOL, JOHN PAUL", subject: "AC221", prelimExam: "28", midtermExam: "-", midtermGrade: "-" },
+        { name: "MADERSE, MAYLENE", subject: "AC221", prelimExam: "1.9", midtermExam: "-", midtermGrade: "-" },
+        { name: "MALASAGA, RHAMCIES", subject: "AC221", prelimExam: "1.8", midtermExam: "19", midtermGrade: "1.7" },
+        { name: "MIJARES, WENDELL", subject: "AC221", prelimExam: "1.8", midtermExam: "22", midtermGrade: "1.8" },
+        { name: "MORANTE, EDUARDO, JR.", subject: "AC221", prelimExam: "3.3", midtermExam: "-", midtermGrade: "-" },
+        { name: "NAVARRETE, DARIELLE FAYE", subject: "AC221", prelimExam: "2.6", midtermExam: "-", midtermGrade: "-" },
+        { name: "NIVERA, COLINE", subject: "AC221", prelimExam: "19", midtermExam: "17", midtermGrade: "1.6" },
+        { name: "OBIDOS, PRINCESS HANNA", subject: "AC221", prelimExam: "1.9", midtermExam: "-", midtermGrade: "-" },
+        { name: "PANOY, VAUGHN RHOAN", subject: "AC221", prelimExam: "2", midtermExam: "-", midtermGrade: "-" },
+        { name: "PECORE, JOHN PAUL", subject: "AC221", prelimExam: "4", midtermExam: "2.0", midtermGrade: "27" },
+        { name: "PERIDO, YVES TRISTAN", subject: "AC221", prelimExam: "3", midtermExam: "2.7", midtermGrade: "2.6" },
+        { name: "REGIS, ATASHA LLOREN", subject: "AC221", prelimExam: "2.5", midtermExam: "22", midtermGrade: "2.1" },
+        { name: "SAPLAD, DOLPH", subject: "AC221", prelimExam: "1.8", midtermExam: "-", midtermGrade: "-" },
+        { name: "TAPE, MICHAEL", subject: "AC221", prelimExam: "22", midtermExam: "-", midtermGrade: "-" },
+        { name: "TAYOBONG, TERRENCE JEFFREY", subject: "AC221", prelimExam: "22", midtermExam: "2.5", midtermGrade: "20" },
+        { name: "UYVICO, NICOLE PATRICE", subject: "AC221", prelimExam: "28", midtermExam: "19", midtermGrade: "22" },
+        { name: "VERDEJO, LEMUEL BOR.J", subject: "AC221", prelimExam: "25", midtermExam: "-", midtermGrade: "-" },
+        { name: "VERRA, JELMAR", subject: "AC221", prelimExam: "4", midtermExam: "-", midtermGrade: "-" },
+        { name: "VILLALINO, JOHN KEVIN SARINO", subject: "AC221", prelimExam: "2", midtermExam: "-", midtermGrade: "-" },
+        { name: "YU, MARTY", subject: "AC221", prelimExam: "2.9", midtermExam: "-", midtermGrade: "-" },
+        { name: "ZATA, CRYSTAL", subject: "AC221", prelimExam: "1.9", midtermExam: "-", midtermGrade: "-" },
+        { name: "ZOILO, CHRISHANIE", subject: "AC221", prelimExam: "2.4", midtermExam: "1.9", midtermGrade: "1.9" },
+
+        // Block 2 (from BLK 2 PDF)
+        { name: "ABAD, TWINKLE KHAYE", subject: "AC221", prelimExam: "14", midtermExam: "19", midtermGrade: "1.7" },
+        { name: "ABADINGO, CHARMEL JANE", subject: "AC221", prelimExam: "1.9", midtermExam: "-", midtermGrade: "-" },
+        { name: "ALA, EMMANUEL RAVEN", subject: "AC221", prelimExam: "1.5", midtermExam: "18", midtermGrade: "17" },
+        { name: "AMOYAN, RYAN X", subject: "AC221", prelimExam: "2.3", midtermExam: "19", midtermGrade: "19" },
+        { name: "ANACIO, ANTHONY CAPADIA", subject: "AC221", prelimExam: "2.1", midtermExam: "23", midtermGrade: "1.9" },
+        { name: "ARRIESGADO, CHARM JAYRAH", subject: "AC221", prelimExam: "-", midtermExam: "1.8", midtermGrade: "1.8" },
+        { name: "ASACION, RJEAN", subject: "AC221", prelimExam: "1.5", midtermExam: "18", midtermGrade: "17" },
+        { name: "ASTRONOMO, JIAN CARLO", subject: "AC221", prelimExam: "15", midtermExam: "16", midtermGrade: "14" },
+        { name: "AVILA, JEANNE JOCKLYN", subject: "AC221", prelimExam: "2.1", midtermExam: "-", midtermGrade: "-" },
+        { name: "AYES, JULIANNE GRACE", subject: "AC221", prelimExam: "1.7", midtermExam: "2", midtermGrade: "1.7" },
+        { name: "BALEÑA, THALIA DENISE", subject: "AC221", prelimExam: "-", midtermExam: "24", midtermGrade: "20" },
+        { name: "BARCIAL, KENARD", subject: "AC221", prelimExam: "15", midtermExam: "19", midtermGrade: "1.7" },
+        { name: "BARTOLOME, MA PRINCESS", subject: "AC221", prelimExam: "1.7", midtermExam: "1.7", midtermGrade: "-" },
+        { name: "BASILIA, MA REANITA MAE", subject: "AC221", prelimExam: "24", midtermExam: "22", midtermGrade: "21" },
+        { name: "BORROMEO, NIÑO JUSTINE KIRK", subject: "AC221", prelimExam: "12", midtermExam: "21", midtermGrade: "1.7" },
+        { name: "CAYACO, BON JUSTINE", subject: "AC221", prelimExam: "2.1", midtermExam: "-", midtermGrade: "-" },
+        { name: "CHUA, EDWARDINE ELLAISHA", subject: "AC221", prelimExam: "1.8", midtermExam: "1.8", midtermGrade: "18" },
+        { name: "CONGE, JEFF ROSS", subject: "AC221", prelimExam: "29", midtermExam: "-", midtermGrade: "-" },
+        { name: "CUMLA, SHAQUILLE", subject: "AC221", prelimExam: "13", midtermExam: "22", midtermGrade: "16" },
+        { name: "DE PAZ, JOHN KARLO", subject: "AC221", prelimExam: "1.7", midtermExam: "1.9", midtermGrade: "1.6" },
+        { name: "DONASCO, THERESE", subject: "AC221", prelimExam: "1.8", midtermExam: "-", midtermGrade: "-" },
+        { name: "ENALES, ANGEL CABARRUBIAS", subject: "AC221", prelimExam: "1.1", midtermExam: "18", midtermGrade: "1.4" },
+        { name: "ESPINOSA, RALPH MELVIN", subject: "AC221", prelimExam: "2.1", midtermExam: "1.9", midtermGrade: "1.8" },
+        { name: "HIECKS, JOHN HUBERTUS", subject: "AC221", prelimExam: "1.9", midtermExam: "1.8", midtermGrade: "1.7" },
+        { name: "LAGARTO, JASTENE", subject: "AC221", prelimExam: "22", midtermExam: "18", midtermGrade: "1.8" },
+        { name: "LAGRAMADA, JOHN FEL", subject: "AC221", prelimExam: "-", midtermExam: "1.9", midtermGrade: "1.7" },
+        { name: "LOREÑO, DIANA ROSE GAYO", subject: "AC221", prelimExam: "1:8", midtermExam: "21", midtermGrade: "1.8" },
+        { name: "MACASPAG, CHARLES JOSHUA", subject: "AC221", prelimExam: "21", midtermExam: "10", midtermGrade: "1.9" },
+        { name: "MANATAD, EZRYLLE", subject: "AC221", prelimExam: "2", midtermExam: "1.5", midtermGrade: "16" },
+        { name: "MANGALINDAN, LYKA RIAN", subject: "AC221", prelimExam: "25", midtermExam: "2", midtermGrade: "1.9" },
+        { name: "MANITO, TRIXCE MHAE", subject: "AC221", prelimExam: "1.9", midtermExam: "19", midtermGrade: "18" },
+        { name: "MESA, JOEY", subject: "AC221", prelimExam: "1.9", midtermExam: "1.9", midtermGrade: "1.8" },
+        { name: "MONLEON, ROD KAIZER VER", subject: "AC221", prelimExam: "1.9", midtermExam: "2", midtermGrade: "18" },
+        { name: "MORABE, FRANCINE AIRHEKA", subject: "AC221", prelimExam: "10", midtermExam: "22", midtermGrade: "1.9" },
+        { name: "MORENO, STEVE ANDRES", subject: "AC221", prelimExam: "1.8", midtermExam: "22", midtermGrade: "1.7" },
+        { name: "NARBONITA, ALTHEA FAYE", subject: "AC221", prelimExam: "-", midtermExam: "1.8", midtermGrade: "1.6" },
+        { name: "NEDRUDA, ROSE GEM", subject: "AC221", prelimExam: "19", midtermExam: "2", midtermGrade: "18" },
+        { name: "NUEVAS, AJAY", subject: "AC221", prelimExam: "2", midtermExam: "22", midtermGrade: "1.9" },
+        { name: "OCENAR, JHASPER", subject: "AC221", prelimExam: "1.9", midtermExam: "-", midtermGrade: "-" },
+        { name: "ODAL, MARY KRIS", subject: "AC221", prelimExam: "1.5", midtermExam: "-", midtermGrade: "-" },
+        { name: "PADUAL, LAMIA MARGARETTE", subject: "AC221", prelimExam: "1.9", midtermExam: "22", midtermGrade: "18" },
+        { name: "PAJARES, REGINE", subject: "AC221", prelimExam: "1.5", midtermExam: "1.0", midtermGrade: "16" },
+        { name: "PARROCHO, LOUIENA", subject: "AC221", prelimExam: "1.7", midtermExam: "19", midtermGrade: "1.6" },
+        { name: "RAPATAN, CRISTINE JOY", subject: "AC221", prelimExam: "5", midtermExam: "24", midtermGrade: "33" },
+        { name: "REATAZA, WILL KENNVIC", subject: "AC221", prelimExam: "24", midtermExam: "2", midtermGrade: "20" },
+        { name: "SALIMBANGON, JENNELOU", subject: "AC221", prelimExam: "18", midtermExam: "22", midtermGrade: "19" },
+        { name: "TABULOC, JHON REY", subject: "AC221", prelimExam: "21", midtermExam: "-", midtermGrade: "-" },
+        { name: "TENORIO, ANGEL CABARRUBIAS", subject: "AC221", prelimExam: "4", midtermExam: "17", midtermGrade: "2.5" },
+        { name: "TIL, JACON EMMANUEL", subject: "AC221", prelimExam: "-", midtermExam: "-", midtermGrade: "-" },
+        { name: "TUMBAGA, ALMHERA KRIS", subject: "AC221", prelimExam: "1.7", midtermExam: "21", midtermGrade: "1.7" },
+        { name: "TUNGGOLH, ELMER REGIS", subject: "AC221", prelimExam: "1.5", midtermExam: "1.7", midtermGrade: "15" },
+        { name: "VALLEJO, AIA CHRISTIAN", subject: "AC221", prelimExam: "1.9", midtermExam: "22", midtermGrade: "1.8" },
+        { name: "CZARINAH RAIZEL", subject: "AC221", prelimExam: "2", midtermExam: "-", midtermGrade: "-" }
+    ];
+
+    function getRemarks(gradeVal) {
+        if (!gradeVal || gradeVal.toUpperCase() === "DRP" || gradeVal === "-") return "Drop";
+        let num = parseFloat(gradeVal);
+        if (isNaN(num)) return "N/A";
+        if (num >= 1.0 && num <= 2.9) return "Passed";
+        if (num >= 3.0 && num <= 5.0) return "Failed";
+        return "N/A";
+    }
+
+    function calculateDenseSubjectRanks(subjectCode) {
+        let subjectStudents = rawGrades.filter(s => s.subject === subjectCode && !isNaN(parseFloat(s.midtermGrade)) && getRemarks(s.midtermGrade) === "Passed");
+        subjectStudents.sort((a, b) => parseFloat(a.midtermGrade) - parseFloat(b.midtermGrade));
+        let rankMap = {};
+        let currentRank = 1;
+        for (let i = 0; i < subjectStudents.length; i++) {
+            if (i > 0 && parseFloat(subjectStudents[i].midtermGrade) > parseFloat(subjectStudents[i-1].midtermGrade)) { currentRank++; }
+            rankMap[subjectStudents[i].name] = currentRank;
+        }
+        return { sortedList: subjectStudents, rankMap: rankMap };
+    }
+
+    function calculateSearchSubjectRanks(subjectCode) {
+        let subjectStudents = rawGrades.filter(s => s.subject === subjectCode && !isNaN(parseFloat(s.midtermGrade)) && getRemarks(s.midtermGrade) === "Passed");
+        
+        subjectStudents.sort((a, b) => {
+            let gradeDiff = parseFloat(a.midtermGrade) - parseFloat(b.midtermGrade);
+            if (gradeDiff !== 0) return gradeDiff;
+            return a.name.localeCompare(b.name);
+        });
+
+        let rankMap = {};
+        for (let i = 0; i < subjectStudents.length; i++) {
+            rankMap[subjectStudents[i].name] = i + 1;
+        }
+        return rankMap;
+    }
+
+    const denseAc221 = calculateDenseSubjectRanks("AC221");
+    const searchAc221RankMap = calculateSearchSubjectRanks("AC221");
+
+    function renderTopFive(elementId, dataset) {
+        const ul = document.getElementById(elementId);
+        ul.innerHTML = "";
+        
+        for (let i = 0; i < dataset.sortedList.length; i++) {
+            let student = dataset.sortedList[i];
+            let currentRank = dataset.rankMap[student.name];
+            if (currentRank > 5) break;
+            
+            let li = document.createElement("li");
+            li.className = "top-item";
+            li.innerHTML = `<span><span class="rank-badge">Rank ${currentRank}</span> ${student.name}</span> <strong>${student.midtermGrade}</strong>`;
+            ul.appendChild(li);
+        }
+    }
+
+    renderTopFive("ac221Top", denseAc221);
+
+    function searchStudent() {
+        const query = document.getElementById("searchInput").value.trim().toLowerCase();
+        const resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML = "";
+
+        if (query === "") return;
+
+        let profiles = {};
+
+        rawGrades.forEach(record => {
+            if (record.name.toLowerCase().includes(query)) {
+                if (!profiles[record.name]) {
+                    profiles[record.name] = [];
+                }
+                
+                let calculatedRank = "N/A";
+                let remark = getRemarks(record.midtermGrade);
+                if (!isNaN(parseFloat(record.midtermGrade)) && remark === "Passed") {
+                    if (record.subject === "AC221") calculatedRank = searchAc221RankMap[record.name] || "N/A";
+                }
+
+                profiles[record.name].push({
+                    subject: "AC 221",
+                    prelimExam: record.prelimExam,
+                    midtermExam: record.midtermExam,
+                    midtermGrade: record.midtermGrade,
+                    remarks: remark,
+                    rank: calculatedRank
+                });
+            }
+        });
+
+        const matchedNames = Object.keys(profiles);
+
+        if (matchedNames.length === 0) {
+            resultsDiv.innerHTML = '<div class="no-results">No matches found. Check your search spelling.</div>';
+            return;
+        }
+
+        matchedNames.forEach(studentName => {
+            let card = document.createElement("div");
+            card.className = "student-card";
+
+            let nameHeader = document.createElement("div");
+            nameHeader.className = "student-name";
+            nameHeader.textContent = studentName;
+            card.appendChild(nameHeader);
+
+            let headerRow = document.createElement("div");
+            headerRow.className = "subject-row subject-header";
+            headerRow.innerHTML = `<div>Subject</div><div>Prelim Exam</div><div>Midterm Exam</div><div>Midterm Grade</div><div>Remarks</div><div>Rank</div>`;
+            card.appendChild(headerRow);
+
+            profiles[studentName].forEach(item => {
+                let row = document.createElement("div");
+                row.className = "subject-row";
+
+                let remarkClass = "remarks-passed";
+                if (item.remarks === 'Failed') remarkClass = "remarks-failed";
+                if (item.remarks === 'Drop') remarkClass = "remarks-drop";
+
+                row.innerHTML = `
+                    <div>${item.subject}</div>
+                    <div><strong>${item.prelimExam}</strong></div>
+                    <div><strong>${item.midtermExam}</strong></div>
+                    <div><strong>${item.midtermGrade}</strong></div>
+                    <div class="${remarkClass}">${item.remarks}</div>
+                    <div>${item.rank}</div>
+                `;
+                card.appendChild(row);
+            });
+
+            resultsDiv.appendChild(card);
+        });
+    }
+</script>
+</body>
+</html>
